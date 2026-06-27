@@ -2,7 +2,12 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { getCalendar, listProperties, listUnits } from "@/lib/booking/api";
+import {
+  getAvailability,
+  getCalendar,
+  listProperties,
+  listUnits,
+} from "@/lib/booking/api";
 
 const STALE_TIME = 5 * 60_000;
 
@@ -32,6 +37,19 @@ export function useCalendar(
     queryKey: ["calendar", propertyId, start, end],
     queryFn: () => getCalendar(propertyId!, start!, end!),
     enabled: Boolean(propertyId && start && end),
+    staleTime: STALE_TIME,
+  });
+}
+
+export function useAvailability(
+  propertyId: string | null,
+  checkin: string | null,
+  nights: number | null
+) {
+  return useQuery({
+    queryKey: ["availability", propertyId, checkin, nights],
+    queryFn: () => getAvailability(propertyId!, checkin!, nights!),
+    enabled: Boolean(propertyId && checkin && nights && nights > 0),
     staleTime: STALE_TIME,
   });
 }
