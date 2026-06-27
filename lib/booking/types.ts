@@ -22,3 +22,14 @@ export type UnitsResponse = {
   propertyId: string;
   units: Unit[];
 };
+
+export type CalendarDay = {
+  date: string;
+  available: boolean;
+  rateFromValue: number;
+};
+
+export type CalendarResponse = {
+  propertyId: string;
+  days: CalendarDay[];
+};

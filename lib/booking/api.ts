@@ -1,4 +1,8 @@
-import type { PropertiesResponse, UnitsResponse } from "@/lib/booking/types";
+import type {
+  CalendarResponse,
+  PropertiesResponse,
+  UnitsResponse,
+} from "@/lib/booking/types";
 
 const API_BASE = "/api/booking";
 
@@ -20,4 +24,11 @@ export function listProperties() {
 
 export function listUnits(propertyId: string) {
   return fetchJson<UnitsResponse>(`/properties/${propertyId}/units`);
+}
+
+export function getCalendar(propertyId: string, start: string, end: string) {
+  const params = new URLSearchParams({ start, end });
+  return fetchJson<CalendarResponse>(
+    `/properties/${propertyId}/calendar?${params.toString()}`
+  );
 }

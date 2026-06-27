@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { listProperties, listUnits } from "@/lib/booking/api";
+import { getCalendar, listProperties, listUnits } from "@/lib/booking/api";
 
 const STALE_TIME = 5 * 60_000;
 
@@ -19,6 +19,19 @@ export function useUnits(propertyId: string | null) {
     queryKey: ["units", propertyId],
     queryFn: () => listUnits(propertyId!),
     enabled: Boolean(propertyId),
+    staleTime: STALE_TIME,
+  });
+}
+
+export function useCalendar(
+  propertyId: string | null,
+  start: string | null,
+  end: string | null
+) {
+  return useQuery({
+    queryKey: ["calendar", propertyId, start, end],
+    queryFn: () => getCalendar(propertyId!, start!, end!),
+    enabled: Boolean(propertyId && start && end),
     staleTime: STALE_TIME,
   });
 }

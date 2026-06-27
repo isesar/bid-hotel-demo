@@ -19,10 +19,12 @@ export function HotelOptionCard({
   selected = false,
   layout = "desktop",
   showSubtitle = true,
-}: HotelOptionCardProps) {
+  onSelect,
+}: HotelOptionCardProps & { onSelect?: () => void }) {
   return (
     <label
       htmlFor={id}
+      onClick={onSelect}
       className={cn(
         "group relative flex cursor-pointer flex-col border border-[#c6c6c6] text-left transition-colors hover:bg-[#fafafa]",
         selected && "bg-[#f3f3f3]",

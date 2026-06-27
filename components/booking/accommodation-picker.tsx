@@ -1,6 +1,7 @@
 "use client";
 
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { listUnits } from "@/lib/booking/api";
@@ -25,11 +26,12 @@ function PropertiesError({ message }: { message: string }) {
 }
 
 export function AccommodationPicker() {
+  const router = useRouter();
   const [open, setOpen] = useState(true);
   const [activeTab, setActiveTab] = useState<"accommodation" | "dates">(
     "accommodation"
   );
-  const { property: selectedPropertyId, selectProperty } = usePropertySelection();
+  const { property: selectedPropertyId } = usePropertySelection();
 
   const queryClient = useQueryClient();
   const { data, isLoading, isError, error } = useProperties();
@@ -37,13 +39,15 @@ export function AccommodationPicker() {
 
   const handleSelectProperty = useCallback(
     (propertyId: string) => {
-      selectProperty(propertyId);
       void queryClient.prefetchQuery({
         queryKey: ["units", propertyId],
         queryFn: () => listUnits(propertyId),
       });
+      router.push(
+        `/book/calendar?property=${encodeURIComponent(propertyId)}`
+      );
     },
-    [queryClient, selectProperty]
+    [queryClient, router]
   );
 
   const properties = data?.properties ?? [];
