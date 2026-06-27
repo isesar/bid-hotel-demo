@@ -12,7 +12,8 @@ import {
 export type RoomSelection = {
   unitId: string;
   rateId: string;
-  qty: number;
+  adults: number;
+  children: number;
 };
 
 const parseAsRoomSelections = createParser({
@@ -22,21 +23,32 @@ const parseAsRoomSelections = createParser({
     const selections: RoomSelection[] = [];
 
     for (const segment of value.split(",")) {
-      const [unitId, rateId, qtyRaw] = segment.split(":");
-      const qty = Number(qtyRaw);
+      const [unitId, rateId, adultsRaw, childrenRaw] = segment.split(":");
+      const adults = Number(adultsRaw);
+      const children = Number(childrenRaw);
 
-      if (!unitId || !rateId || !Number.isInteger(qty) || qty < 1) {
+      if (
+        !unitId ||
+        !rateId ||
+        !Number.isInteger(adults) ||
+        adults < 1 ||
+        !Number.isInteger(children) ||
+        children < 0
+      ) {
         return null;
       }
 
-      selections.push({ unitId, rateId, qty });
+      selections.push({ unitId, rateId, adults, children });
     }
 
     return selections.length > 0 ? selections : null;
   },
   serialize(value) {
     return value
-      .map(({ unitId, rateId, qty }) => `${unitId}:${rateId}:${qty}`)
+      .map(
+        ({ unitId, rateId, adults, children }) =>
+          `${unitId}:${rateId}:${adults}:${children}`
+      )
       .join(",");
   },
 });
