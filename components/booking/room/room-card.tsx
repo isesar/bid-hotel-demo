@@ -143,13 +143,14 @@ function DesktopRoomCard({
           />
         ))}
         {hasMoreRates && !expanded ? (
-          <button
+          <Button
             type="button"
+            variant="link"
             onClick={() => setExpanded(true)}
-            className="mx-auto border-b border-ink p-2 text-caption font-semibold tracking-label text-ink"
+            className="mx-auto h-auto rounded-none border-b border-ink p-2 text-caption font-semibold tracking-label text-ink no-underline hover:no-underline"
           >
             LOAD MORE
-          </button>
+          </Button>
         ) : null}
       </div>
     </div>

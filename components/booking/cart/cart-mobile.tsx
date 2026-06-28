@@ -11,6 +11,7 @@ import {
   CartRoomCard,
   type CartRoomLine,
 } from "@/components/booking/cart/cart-room-card";
+import { Button } from "@/components/ui/button";
 
 type CartMobileProps = {
   open: boolean;
@@ -59,14 +60,16 @@ export function CartMobile({
     <div className="fixed inset-0 z-50 flex flex-col bg-white md:hidden">
       <div className="sticky top-0 z-10 shrink-0 shadow-[0px_4px_9.5px_rgba(0,0,0,0.06)]">
         <div className="flex items-center justify-end bg-ink p-4">
-          <button
+          <Button
             type="button"
+            variant="ghost"
+            size="icon"
             onClick={onClose}
             aria-label="Close cart"
-            className="text-white"
+            className="text-white hover:bg-transparent hover:text-white"
           >
             <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} className="size-6" />
-          </button>
+          </Button>
         </div>
         <div className="bg-surface p-4">
           <p className="text-base font-semibold leading-6 tracking-label text-ink">
@@ -116,10 +119,11 @@ export function CartMobile({
             </div>
           )}
 
-          <button
+          <Button
             type="button"
+            variant="ghost"
             onClick={onAddMore}
-            className="mt-6 flex w-full items-center justify-center gap-1"
+            className="mt-6 h-auto w-full gap-1 rounded-none p-0 hover:bg-transparent"
           >
             <span className="border-b border-ink text-caption font-semibold tracking-label text-ink">
               ADD MORE ROOMS
@@ -129,16 +133,17 @@ export function CartMobile({
               strokeWidth={2}
               className="size-4 text-ink"
             />
-          </button>
+          </Button>
         </section>
       </div>
 
       <div className="fixed inset-x-0 bottom-0 z-10 bg-white px-4 pb-6 pt-6 md:hidden">
-        <button
+        <Button
           type="button"
+          variant="ghost"
           onClick={onContinue}
           disabled={lines.length === 0}
-          className="flex h-14 w-full items-center justify-between bg-ink px-6 text-white disabled:cursor-not-allowed disabled:bg-line"
+          className="flex h-14 w-full items-center justify-between rounded-none bg-ink px-6 text-white hover:bg-ink disabled:cursor-not-allowed disabled:bg-line"
         >
           <span className="text-base font-semibold leading-6 tracking-label">
             Total: {formatEuro(grandTotal)}
@@ -146,7 +151,7 @@ export function CartMobile({
           <span className="text-base font-semibold leading-6 tracking-label">
             CONTINUE
           </span>
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -5,6 +5,8 @@ import { MinusSignIcon, PlusSignIcon } from "@hugeicons/core-free-icons";
 
 import { cn } from "@/lib/utils";
 
+import { Button } from "@/components/ui/button";
+
 type OccupancyStepperProps = {
   label: string;
   sublabel?: string;
@@ -25,16 +27,17 @@ function StepperButton({
   children: React.ReactNode;
 }) {
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "flex size-8 shrink-0 items-center justify-center border border-line bg-white text-ink disabled:cursor-not-allowed disabled:opacity-40"
+        "size-8 shrink-0 rounded-none border border-line bg-white text-ink hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
       )}
     >
       {children}
-    </button>
+    </Button>
   );
 }
 

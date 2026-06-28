@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Search01Icon } from "@hugeicons/core-free-icons";
 
+import { Button } from "@/components/ui/button";
+
 type RoomSearchSummaryProps = {
   propertyName: string;
   checkin: Date;
@@ -49,17 +51,18 @@ export function RoomSearchSummary({
           </p>
         </div>
       </div>
-      <button
+      <Button
         type="button"
+        variant="link"
         onClick={() =>
           router.push(
             `/book/calendar?property=${encodeURIComponent(propertyId)}`
           )
         }
-        className="shrink-0 border-b border-ink p-2 text-caption font-semibold tracking-label text-ink"
+        className="h-auto shrink-0 rounded-none border-b border-ink p-2 text-caption font-semibold tracking-label text-ink no-underline hover:no-underline"
       >
         EDIT
-      </button>
+      </Button>
     </div>
   );
 }

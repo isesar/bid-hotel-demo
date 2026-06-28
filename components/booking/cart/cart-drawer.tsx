@@ -15,6 +15,7 @@ import {
   SheetDescription,
   SheetTitle,
 } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
 
 type CartDrawerProps = {
   open: boolean;
@@ -63,17 +64,19 @@ export function CartDrawer({
                 <p className="font-serif text-title leading-[31px] tracking-label text-ink">
                   {propertyName}
                 </p>
-                <button
+                <Button
                   type="button"
+                  variant="ghost"
+                  size="icon"
                   aria-label="Property information"
-                  className="mt-1 shrink-0 text-ink"
+                  className="mt-1 shrink-0 text-ink hover:bg-transparent"
                 >
                   <HugeiconsIcon
                     icon={InformationCircleIcon}
                     strokeWidth={2}
                     className="size-6"
                   />
-                </button>
+                </Button>
               </div>
               <p className="text-caption leading-[18px] tracking-label text-ink-muted">
                 {dateRange}
@@ -96,13 +99,14 @@ export function CartDrawer({
           </div>
 
           <div className="shrink-0 border-t border-line bg-surface px-4 pb-4 pt-4">
-            <button
+            <Button
               type="button"
+              variant="ghost"
               onClick={onAddMore}
-              className="mb-4 w-full text-center text-caption font-semibold tracking-label text-ink"
+              className="mb-4 h-auto w-full rounded-none p-0 text-center text-caption font-semibold tracking-label text-ink hover:bg-transparent"
             >
               ADD MORE ROOMS +
-            </button>
+            </Button>
 
             <div className="mb-4 flex items-center justify-between">
               <p className="text-base font-semibold leading-6 tracking-label text-ink">
@@ -113,11 +117,12 @@ export function CartDrawer({
               </p>
             </div>
 
-            <button
+            <Button
               type="button"
+              variant="ghost"
               onClick={onContinue}
               disabled={lines.length === 0}
-              className="flex h-14 w-full items-center justify-between bg-ink px-6 text-white disabled:cursor-not-allowed disabled:bg-line"
+              className="flex h-14 w-full items-center justify-between rounded-none bg-ink px-6 text-white hover:bg-ink disabled:cursor-not-allowed disabled:bg-line"
             >
               <span className="text-base font-semibold leading-6 tracking-label">
                 Total: {formatEuro(grandTotal)}
@@ -125,7 +130,7 @@ export function CartDrawer({
               <span className="text-base font-semibold leading-6 tracking-label">
                 CONTINUE
               </span>
-            </button>
+            </Button>
           </div>
         </div>
       </SheetContent>

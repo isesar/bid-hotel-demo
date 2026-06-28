@@ -8,6 +8,8 @@ import type { RoomSelection } from "@/lib/booking/search-params";
 import { cn } from "@/lib/utils";
 
 import { OccupancyStepper } from "@/components/booking/cart/occupancy-stepper";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 export type CartRoomLine = RoomSelection & {
   name: string;
@@ -61,14 +63,16 @@ export function CartRoomCard({
             {formatBoardType(line.boardType)}
           </p>
         </div>
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          size="icon"
           onClick={onRemove}
           aria-label={`Remove ${line.name}`}
-          className="shrink-0 p-1 text-ink"
+          className="shrink-0 text-ink hover:bg-transparent"
         >
           <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} className="size-6" />
-        </button>
+        </Button>
       </div>
 
       <div className="flex flex-col gap-4 px-4 py-4">
@@ -99,7 +103,7 @@ export function CartRoomCard({
           </div>
         ) : (
           <>
-            <div className="h-px w-full bg-line" />
+            <Separator className="bg-line" />
 
             <div className="flex items-center justify-between">
               <p className="text-base font-semibold leading-6 tracking-label text-ink">
@@ -110,12 +114,13 @@ export function CartRoomCard({
               </p>
             </div>
 
-            <button
+            <Button
               type="button"
-              className="self-end border-b border-ink text-caption tracking-label text-ink"
+              variant="link"
+              className="h-auto self-end rounded-none border-b border-ink p-0 text-caption tracking-label text-ink no-underline hover:no-underline"
             >
               Rate details
-            </button>
+            </Button>
           </>
         )}
       </div>

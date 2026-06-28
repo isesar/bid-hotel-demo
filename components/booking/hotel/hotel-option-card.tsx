@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { RadioGroupItem } from "@/components/ui/radio-group";
 
 type HotelOptionCardProps = {
@@ -65,17 +66,18 @@ export function SeeAllHotelsCard({
   onClick,
 }: SeeAllHotelsCardProps) {
   return (
-    <button
+    <Button
       type="button"
+      variant="ghost"
       onClick={onClick}
       className={cn(
-        "flex min-h-[87px] cursor-pointer flex-col justify-center border border-line text-left transition-colors hover:bg-surface-hover",
+        "h-auto min-h-[87px] cursor-pointer flex-col items-start justify-center rounded-none border border-line text-left transition-colors hover:bg-surface-hover",
         layout === "desktop" ? "px-10 py-4" : "border-x-0 border-t p-4"
       )}
     >
       <p className="font-serif text-title tracking-label text-ink">
         See All Hotels
       </p>
-    </button>
+    </Button>
   );
 }

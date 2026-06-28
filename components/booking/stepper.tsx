@@ -1,5 +1,7 @@
 import { cn } from "@/lib/utils";
 
+import { Separator } from "@/components/ui/separator";
+
 type StepperProps = {
   steps: string[];
   activeStep: number;
@@ -17,7 +19,7 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
       {steps.map((label, index) => (
         <div key={label} className="flex items-center gap-2">
           {index > 0 ? (
-            <span className="h-px w-8 shrink-0 bg-line" aria-hidden />
+            <Separator className="w-8 shrink-0 bg-line" />
           ) : null}
           <div className="flex items-center gap-2">
             <span

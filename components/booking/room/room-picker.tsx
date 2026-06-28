@@ -20,6 +20,7 @@ import type { CartRoomLine } from "@/components/booking/cart/cart-room-card";
 import { RoomCard, type RoomCardData } from "@/components/booking/room/room-card";
 import { RoomSearchSummary } from "@/components/booking/room/room-search-summary";
 import { BOOKING_STEPS, Stepper } from "@/components/booking/stepper";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 
 function subscribeMediaQuery(query: string, onChange: () => void) {
@@ -321,13 +322,14 @@ export function RoomPicker() {
                 {availabilityLabel}
               </p>
               {cartLines.length > 0 ? (
-                <button
+                <Button
                   type="button"
+                  variant="link"
                   onClick={handleOpenCart}
-                  className="border-b border-ink text-caption font-semibold tracking-label text-ink"
+                  className="h-auto rounded-none border-b border-ink p-0 text-caption font-semibold tracking-label text-ink no-underline hover:no-underline"
                 >
                   VIEW CART ({cartLines.length})
-                </button>
+                </Button>
               ) : null}
             </div>
             <div
