@@ -49,7 +49,7 @@ export function CartDrawer({
         side="right"
         showCloseButton={false}
         overlayClassName="bg-[rgba(31,31,31,0.2)] backdrop-blur-[10px] supports-backdrop-filter:backdrop-blur-[10px]"
-        className="flex w-full flex-col gap-0 rounded-none border-l border-[#c6c6c6] bg-[#f3f3f3] p-0 sm:max-w-[332px]"
+        className="flex w-full flex-col gap-0 rounded-none border-l border-line bg-surface p-0 sm:max-w-[332px]"
       >
         <SheetTitle className="sr-only">Booking cart</SheetTitle>
         <SheetDescription className="sr-only">
@@ -60,13 +60,13 @@ export function CartDrawer({
           <div className="flex-1 overflow-y-auto px-4 pt-4">
             <div className="mb-4">
               <div className="flex items-start gap-2">
-                <p className="font-serif text-[23px] leading-[31px] tracking-[0.2px] text-[#1f1f1f]">
+                <p className="font-serif text-title leading-[31px] tracking-label text-ink">
                   {propertyName}
                 </p>
                 <button
                   type="button"
                   aria-label="Property information"
-                  className="mt-1 shrink-0 text-[#1f1f1f]"
+                  className="mt-1 shrink-0 text-ink"
                 >
                   <HugeiconsIcon
                     icon={InformationCircleIcon}
@@ -75,7 +75,7 @@ export function CartDrawer({
                   />
                 </button>
               </div>
-              <p className="text-[13px] leading-[18px] tracking-[0.2px] text-[#5e5e5e]">
+              <p className="text-caption leading-[18px] tracking-label text-ink-muted">
                 {dateRange}
               </p>
             </div>
@@ -95,20 +95,20 @@ export function CartDrawer({
             </div>
           </div>
 
-          <div className="shrink-0 border-t border-[#c6c6c6] bg-[#f3f3f3] px-4 pb-4 pt-4">
+          <div className="shrink-0 border-t border-line bg-surface px-4 pb-4 pt-4">
             <button
               type="button"
               onClick={onAddMore}
-              className="mb-4 w-full text-center text-[13px] font-semibold tracking-[0.2px] text-[#1f1f1f]"
+              className="mb-4 w-full text-center text-caption font-semibold tracking-label text-ink"
             >
               ADD MORE ROOMS +
             </button>
 
             <div className="mb-4 flex items-center justify-between">
-              <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+              <p className="text-base font-semibold leading-6 tracking-label text-ink">
                 Total
               </p>
-              <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+              <p className="text-base font-semibold leading-6 tracking-label text-ink">
                 {formatEuro(grandTotal)}
               </p>
             </div>
@@ -117,12 +117,12 @@ export function CartDrawer({
               type="button"
               onClick={onContinue}
               disabled={lines.length === 0}
-              className="flex h-14 w-full items-center justify-between bg-[#1f1f1f] px-6 text-white disabled:cursor-not-allowed disabled:bg-[#c6c6c6]"
+              className="flex h-14 w-full items-center justify-between bg-ink px-6 text-white disabled:cursor-not-allowed disabled:bg-line"
             >
-              <span className="text-[16px] font-semibold leading-6 tracking-[0.2px]">
+              <span className="text-base font-semibold leading-6 tracking-label">
                 Total: {formatEuro(grandTotal)}
               </span>
-              <span className="text-[16px] font-semibold leading-6 tracking-[0.2px]">
+              <span className="text-base font-semibold leading-6 tracking-label">
                 CONTINUE
               </span>
             </button>

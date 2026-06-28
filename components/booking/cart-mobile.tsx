@@ -58,7 +58,7 @@ export function CartMobile({
   return (
     <div className="fixed inset-0 z-50 flex flex-col bg-white md:hidden">
       <div className="sticky top-0 z-10 shrink-0 shadow-[0px_4px_9.5px_rgba(0,0,0,0.06)]">
-        <div className="flex items-center justify-end bg-[#1f1f1f] p-4">
+        <div className="flex items-center justify-end bg-ink p-4">
           <button
             type="button"
             onClick={onClose}
@@ -68,13 +68,13 @@ export function CartMobile({
             <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} className="size-6" />
           </button>
         </div>
-        <div className="bg-[#f3f3f3] p-4">
-          <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+        <div className="bg-surface p-4">
+          <p className="text-base font-semibold leading-6 tracking-label text-ink">
             {propertyName}
           </p>
-          <p className="text-[16px] leading-6 tracking-[0.2px] text-[#5e5e5e]">
+          <p className="text-base leading-6 tracking-label text-ink-muted">
             {dateRange}{" "}
-            <span className="text-[#5e5e5e]">({nightsLabel})</span>
+            <span className="text-ink-muted">({nightsLabel})</span>
           </p>
         </div>
       </div>
@@ -91,11 +91,11 @@ export function CartMobile({
         ) : null}
 
         <section className="px-4 py-6">
-          <p className="mb-4 text-center text-[16px] font-semibold leading-6 text-[#1f1f1f]">
+          <p className="mb-4 text-center text-base font-semibold leading-6 text-ink">
             SELECTED ROOM(S)
           </p>
           {lines.length === 0 ? (
-            <p className="py-6 text-center text-[13px] tracking-[0.2px] text-[#5e5e5e]">
+            <p className="py-6 text-center text-caption tracking-label text-ink-muted">
               No rooms selected yet.
             </p>
           ) : (
@@ -121,13 +121,13 @@ export function CartMobile({
             onClick={onAddMore}
             className="mt-6 flex w-full items-center justify-center gap-1"
           >
-            <span className="border-b border-[#1f1f1f] text-[13px] font-semibold tracking-[0.2px] text-[#1f1f1f]">
+            <span className="border-b border-ink text-caption font-semibold tracking-label text-ink">
               ADD MORE ROOMS
             </span>
             <HugeiconsIcon
               icon={PlusSignIcon}
               strokeWidth={2}
-              className="size-4 text-[#1f1f1f]"
+              className="size-4 text-ink"
             />
           </button>
         </section>
@@ -138,12 +138,12 @@ export function CartMobile({
           type="button"
           onClick={onContinue}
           disabled={lines.length === 0}
-          className="flex h-14 w-full items-center justify-between bg-[#1f1f1f] px-6 text-white disabled:cursor-not-allowed disabled:bg-[#c6c6c6]"
+          className="flex h-14 w-full items-center justify-between bg-ink px-6 text-white disabled:cursor-not-allowed disabled:bg-line"
         >
-          <span className="text-[16px] font-semibold leading-6 tracking-[0.2px]">
+          <span className="text-base font-semibold leading-6 tracking-label">
             Total: {formatEuro(grandTotal)}
           </span>
-          <span className="text-[16px] font-semibold leading-6 tracking-[0.2px]">
+          <span className="text-base font-semibold leading-6 tracking-label">
             CONTINUE
           </span>
         </button>

@@ -10,9 +10,9 @@ import { cn } from "@/lib/utils";
 import { useProperties, useUnits } from "@/hooks/use-booking-queries";
 
 import { Button } from "@/components/ui/button";
-import { AccommodationDialog } from "@/components/booking/accommodation-dialog";
-import { AccommodationSkeleton } from "@/components/booking/accommodation-skeleton";
-import { AccommodationTabs } from "@/components/booking/accommodation-tabs";
+import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
+import { AccommodationSkeleton } from "@/components/booking/accomodation/accommodation-skeleton";
+import { AccommodationTabs } from "@/components/booking/accomodation/accommodation-tabs";
 import { HotelList } from "@/components/booking/hotel-list";
 import { PaginationDots } from "@/components/booking/pagination-dots";
 
@@ -21,7 +21,7 @@ const HERO_IMAGE =
 
 function PropertiesError({ message }: { message: string }) {
   return (
-    <div className="p-10 text-center text-[#5e5e5e] max-md:p-4">{message}</div>
+    <div className="p-10 text-center text-ink-muted max-md:p-4">{message}</div>
   );
 }
 
@@ -104,7 +104,7 @@ export function AccommodationPicker() {
             onTabChange={setActiveTab}
             accommodationContent={mobileList}
             datesContent={
-              <p className="text-center text-[#5e5e5e]">
+              <p className="text-center text-ink-muted">
                 Dates step coming soon
               </p>
             }
@@ -116,7 +116,7 @@ export function AccommodationPicker() {
         <div className="absolute inset-x-0 bottom-10 z-10 flex flex-col items-center gap-6 px-4">
           <Button
             onClick={() => setOpen(true)}
-            className="h-10 rounded-none bg-white px-8 text-sm font-semibold tracking-[0.2px] text-[#1f1f1f] hover:bg-white/90"
+            className="h-10 rounded-none bg-white px-8 text-sm font-semibold tracking-label text-ink hover:bg-white/90"
           >
             Choose Accommodation
           </Button>

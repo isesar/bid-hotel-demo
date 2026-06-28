@@ -17,20 +17,20 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
       {steps.map((label, index) => (
         <div key={label} className="flex items-center gap-2">
           {index > 0 ? (
-            <span className="h-px w-8 shrink-0 bg-[#c6c6c6]" aria-hidden />
+            <span className="h-px w-8 shrink-0 bg-line" aria-hidden />
           ) : null}
           <div className="flex items-center gap-2">
             <span
               className={cn(
-                "flex size-[22px] shrink-0 items-center justify-center rounded-full p-1 text-[9px] font-semibold leading-[14px] tracking-[0.2px]",
+                "flex size-[22px] shrink-0 items-center justify-center rounded-full p-1 text-micro font-semibold leading-[14px] tracking-label",
                 index <= activeStep
-                  ? "bg-[#1f1f1f] text-white"
-                  : "border border-[#1f1f1f] text-[#1f1f1f]"
+                  ? "bg-ink text-white"
+                  : "border border-ink text-ink"
               )}
             >
               {index + 1}
             </span>
-            <span className="whitespace-nowrap text-[9px] font-semibold leading-[14px] tracking-[0.2px] text-[#1f1f1f]">
+            <span className="whitespace-nowrap text-micro font-semibold leading-[14px] tracking-label text-ink">
               {label}
             </span>
           </div>

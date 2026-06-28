@@ -311,20 +311,20 @@ export function RoomPicker() {
         {availabilityLoading ? (
           <RoomListSkeleton />
         ) : availabilityError ? (
-          <p className="py-10 text-center text-[#5e5e5e]">
+          <p className="py-10 text-center text-ink-muted">
             Failed to load room availability.
           </p>
         ) : (
           <>
             <div className="flex flex-col items-center gap-3">
-              <p className="text-center text-[16px] font-semibold text-[#1f1f1f]">
+              <p className="text-center text-base font-semibold text-ink">
                 {availabilityLabel}
               </p>
               {cartLines.length > 0 ? (
                 <button
                   type="button"
                   onClick={handleOpenCart}
-                  className="border-b border-[#1f1f1f] text-[13px] font-semibold tracking-[0.2px] text-[#1f1f1f]"
+                  className="border-b border-ink text-caption font-semibold tracking-label text-ink"
                 >
                   VIEW CART ({cartLines.length})
                 </button>
@@ -337,7 +337,7 @@ export function RoomPicker() {
               )}
             >
               {roomCount === 0 ? (
-                <p className="text-center text-[#5e5e5e]">
+                <p className="text-center text-ink-muted">
                   No rooms available for the selected dates.
                 </p>
               ) : (

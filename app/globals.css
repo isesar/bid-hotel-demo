@@ -47,6 +47,21 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Booking design tokens */
+  --color-ink: #1f1f1f;
+  --color-ink-muted: #5e5e5e;
+  --color-line: #c6c6c6;
+  --color-surface: #f3f3f3;
+  --color-surface-hover: #fafafa;
+  --color-alert: #e02626;
+
+  --text-micro: 9px;
+  --text-mini: 11px;
+  --text-caption: 13px;
+  --text-title: 23px;
+
+  --tracking-label: 0.2px;
 }
 
 :root {

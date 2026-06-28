@@ -36,8 +36,8 @@ function AvailabilityBadge({ unitsAvailable }: { unitsAvailable: number }) {
     unitsAvailable === 1 ? "1 room left" : `${unitsAvailable} rooms left`;
 
   return (
-    <div className="bg-[#f3f3f3] p-2">
-      <p className="text-[13px] font-normal uppercase tracking-[0.2px] text-[#e02626]">
+    <div className="bg-surface p-2">
+      <p className="text-caption font-normal uppercase tracking-label text-alert">
         {label}
       </p>
     </div>
@@ -46,7 +46,7 @@ function AvailabilityBadge({ unitsAvailable }: { unitsAvailable: number }) {
 
 function RatePolicyText({ boardType }: { boardType: string }) {
   return (
-    <div className="text-[13px] tracking-[0.2px] text-[#5e5e5e]">
+    <div className="text-caption tracking-label text-ink-muted">
       <p className="leading-[18px]">{formatBoardType(boardType)}</p>
       <p className="leading-[18px]">
         {RATE_POLICY_LINES.map((line, index) => (
@@ -75,26 +75,26 @@ function DesktopRateRow({
   const personLabel = persons === 1 ? "1 person" : `${persons} persons`;
 
   return (
-    <div className="flex items-end gap-2 border border-[#c6c6c6] p-4">
+    <div className="flex items-end gap-2 border border-line p-4">
       <div className="flex min-w-0 flex-1 flex-col gap-2">
-        <p className="text-[16px] font-semibold leading-6 text-[#1f1f1f]">
+        <p className="text-base font-semibold leading-6 text-ink">
           {rate.rateName}
         </p>
         <RatePolicyText boardType={rate.boardType} />
       </div>
       <div className="flex h-full flex-col items-end justify-between self-stretch">
         <div className="text-right">
-          <p className="text-[16px] font-semibold leading-6 text-[#1f1f1f]">
+          <p className="text-base font-semibold leading-6 text-ink">
             {formatEuro(rate.totalPrice)}
           </p>
-          <p className="text-[13px] tracking-[0.2px] text-[#5e5e5e]">
+          <p className="text-caption tracking-label text-ink-muted">
             {personLabel}, {nightLabel}
           </p>
         </div>
         <Button
           type="button"
           onClick={onSelect}
-          className="h-auto rounded-none bg-[#1f1f1f] px-4 py-2 text-[13px] font-normal tracking-[0.2px] text-[#f3f3f3] hover:bg-[#1f1f1f]/90"
+          className="h-auto rounded-none bg-ink px-4 py-2 text-caption font-normal tracking-label text-surface hover:bg-ink/90"
         >
           SELECT
         </Button>
@@ -116,7 +116,7 @@ function DesktopRoomCard({
   const hasMoreRates = room.rates.length > INITIAL_RATES_VISIBLE;
 
   return (
-    <div className="hidden flex-col border border-[#c6c6c6] bg-white md:flex">
+    <div className="hidden flex-col border border-line bg-white md:flex">
       <div className="flex w-full gap-4">
         <div className="relative min-w-0 flex-1">
           <img
@@ -126,7 +126,7 @@ function DesktopRoomCard({
           />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-between px-4 py-6">
-          <p className="font-serif text-[23px] tracking-[0.2px] text-[#1f1f1f]">
+          <p className="font-serif text-title tracking-label text-ink">
             {room.name}
           </p>
           <AvailabilityBadge unitsAvailable={room.unitsAvailable} />
@@ -146,7 +146,7 @@ function DesktopRoomCard({
           <button
             type="button"
             onClick={() => setExpanded(true)}
-            className="mx-auto border-b border-[#1f1f1f] p-2 text-[13px] font-semibold tracking-[0.2px] text-[#1f1f1f]"
+            className="mx-auto border-b border-ink p-2 text-caption font-semibold tracking-label text-ink"
           >
             LOAD MORE
           </button>
@@ -165,7 +165,7 @@ function MobileRoomCard({ room, onSelect }: RoomCardProps) {
   }, [room.rates]);
 
   return (
-    <div className="flex flex-col border border-[#c6c6c6] bg-white md:hidden">
+    <div className="flex flex-col border border-line bg-white md:hidden">
       <img
         src={room.image}
         alt={room.name}
@@ -173,15 +173,15 @@ function MobileRoomCard({ room, onSelect }: RoomCardProps) {
       />
       <div className="flex flex-col gap-4 p-4">
         <AvailabilityBadge unitsAvailable={room.unitsAvailable} />
-        <p className="font-serif text-[23px] tracking-[0.2px] text-[#1f1f1f]">
+        <p className="font-serif text-title tracking-label text-ink">
           {room.name}
         </p>
-        <div className="flex border border-[#c6c6c6] bg-[#f3f3f3]">
+        <div className="flex border border-line bg-surface">
           <div className="flex flex-1 flex-col justify-center px-4 py-2">
-            <p className="text-[9px] tracking-[0.2px] text-[#1f1f1f]">
+            <p className="text-micro tracking-label text-ink">
               TOTAL PRICE FROM
             </p>
-            <p className="text-[16px] font-semibold leading-6 text-[#1f1f1f]">
+            <p className="text-base font-semibold leading-6 text-ink">
               {cheapestRate ? formatEuro(cheapestRate.totalPrice) : "—"}
             </p>
           </div>
@@ -191,7 +191,7 @@ function MobileRoomCard({ room, onSelect }: RoomCardProps) {
             onClick={() =>
               cheapestRate && onSelect(room.unitId, cheapestRate.rateId)
             }
-            className="h-auto shrink-0 rounded-none bg-[#1f1f1f] p-4 text-[16px] font-normal tracking-[0.2px] text-[#f3f3f3] hover:bg-[#1f1f1f]/90 disabled:bg-[#c6c6c6]"
+            className="h-auto shrink-0 rounded-none bg-ink p-4 text-base font-normal tracking-label text-surface hover:bg-ink/90 disabled:bg-line"
           >
             SELECT
           </Button>

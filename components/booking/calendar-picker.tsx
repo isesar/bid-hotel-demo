@@ -15,7 +15,7 @@ import { useBookingParams } from "@/lib/booking/search-params";
 import { cn } from "@/lib/utils";
 import { useCalendar, useProperties } from "@/hooks/use-booking-queries";
 
-import { AccommodationDialog } from "@/components/booking/accommodation-dialog";
+import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
 import { CalendarConfirmBar } from "@/components/booking/calendar-confirm-bar";
 import { CalendarLegend } from "@/components/booking/calendar-legend";
 import { CalendarTabs } from "@/components/booking/calendar-tabs";
@@ -149,7 +149,7 @@ export function CalendarPicker() {
   const desktopCalendarContent = desktopLoading ? (
     <CalendarSkeleton layout="desktop" />
   ) : desktopError ? (
-    <div className="p-10 text-center text-[#5e5e5e]">
+    <div className="p-10 text-center text-ink-muted">
       Failed to load calendar availability.
     </div>
   ) : (
@@ -167,7 +167,7 @@ export function CalendarPicker() {
   const mobileCalendarContent = mobileLoading ? (
     <CalendarSkeleton layout="mobile" />
   ) : mobileError ? (
-    <div className="p-10 text-center text-[#5e5e5e]">
+    <div className="p-10 text-center text-ink-muted">
       Failed to load calendar availability.
     </div>
   ) : (
@@ -221,8 +221,8 @@ export function CalendarPicker() {
             onTabChange={handleTabChange}
             propertyName={propertyName}
             accommodationContent={
-              <div className="p-6 text-center text-[#5e5e5e]">
-                <p className="font-serif text-xl text-[#1f1f1f]">
+              <div className="p-6 text-center text-ink-muted">
+                <p className="font-serif text-xl text-ink">
                   {propertyName ?? "Selected property"}
                 </p>
                 <p className="mt-2 text-sm">

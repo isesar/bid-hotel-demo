@@ -56,10 +56,10 @@ function createPriceDayButton(priceMap: Record<string, CalendarDay>) {
         data-range-middle={modifiers.range_middle}
         className={cn(
           "relative isolate z-10 flex h-10 w-full min-w-0 flex-col items-start justify-center gap-0 rounded-none border-0 px-2 py-0 text-left leading-none font-normal",
-          "group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-20 group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-[#1f1f1f]/20",
-          isUnavailable && !inRange && "bg-[#f3f3f3] text-[#5e5e5e] opacity-70",
+          "group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-20 group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ink/20",
+          isUnavailable && !inRange && "bg-surface text-ink-muted opacity-70",
           inRange &&
-            "bg-[#1f1f1f] text-white hover:bg-[#1f1f1f] hover:text-white",
+            "bg-ink text-white hover:bg-ink hover:text-white",
           modifiers.range_start && "rounded-l-full",
           modifiers.range_end && "rounded-r-full",
           modifiers.range_middle && "rounded-none",
@@ -68,14 +68,14 @@ function createPriceDayButton(priceMap: Record<string, CalendarDay>) {
         )}
         {...props}
       >
-        <span className="text-[13px] leading-[18px] tracking-[0.2px]">
+        <span className="text-caption leading-[18px] tracking-label">
           {day.date.getDate()}
         </span>
         {dayData ? (
           <span
             className={cn(
-              "text-[9px] leading-none tracking-[0.2px]",
-              inRange ? "text-white/90" : "text-[#1f1f1f]"
+              "text-micro leading-none tracking-label",
+              inRange ? "text-white/90" : "text-ink"
             )}
           >
             {dayData.rateFromValue}€
@@ -129,8 +129,8 @@ export function PriceCalendar({
           layout === "desktop" ? "w-[460px]" : "w-full"
         ),
         month_caption:
-          "flex h-8 w-full items-center justify-center px-0 text-[16px] font-semibold text-[#1f1f1f]",
-        caption_label: "text-[16px] font-semibold text-[#1f1f1f]",
+          "flex h-8 w-full items-center justify-center px-0 text-base font-semibold text-ink",
+        caption_label: "text-base font-semibold text-ink",
         nav:
           layout === "desktop"
             ? "absolute inset-x-0 top-0 flex w-full items-center justify-end gap-1 pr-4"
@@ -138,11 +138,11 @@ export function PriceCalendar({
         button_previous: "hidden",
         button_next:
           layout === "desktop"
-            ? "size-8 p-0 text-[#1f1f1f] hover:bg-transparent"
+            ? "size-8 p-0 text-ink hover:bg-transparent"
             : "hidden",
         weekdays: "flex w-full",
         weekday:
-          "flex h-7 flex-1 items-center justify-center text-[13px] font-normal tracking-[0.2px] text-[#5e5e5e]",
+          "flex h-7 flex-1 items-center justify-center text-caption font-normal tracking-label text-ink-muted",
         week: "mt-0 flex w-full",
         day: cn(
           "relative h-10 flex-1 p-0 text-center select-none",
@@ -150,10 +150,10 @@ export function PriceCalendar({
           "last:[&:has([data-range-end=true])]:rounded-r-full"
         ),
         range_start:
-          "rounded-l-full bg-[#1f1f1f] after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-[#1f1f1f]",
-        range_middle: "rounded-none bg-[#1f1f1f]",
+          "rounded-l-full bg-ink after:absolute after:inset-y-0 after:right-0 after:w-4 after:bg-ink",
+        range_middle: "rounded-none bg-ink",
         range_end:
-          "rounded-r-full bg-[#1f1f1f] after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-[#1f1f1f]",
+          "rounded-r-full bg-ink after:absolute after:inset-y-0 after:left-0 after:w-4 after:bg-ink",
         disabled: "opacity-100",
         outside: "opacity-50",
         today: "bg-transparent",

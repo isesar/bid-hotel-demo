@@ -26,7 +26,7 @@ type CartRatePickerProps = {
 
 function RatePolicyText({ boardType }: { boardType: string }) {
   return (
-    <div className="pl-6 text-[13px] tracking-[0.2px] text-[#5e5e5e]">
+    <div className="pl-6 text-caption tracking-label text-ink-muted">
       <p className="leading-[18px]">{formatBoardType(boardType)}</p>
       <p className="leading-[18px]">
         {RATE_POLICY_LINES.map((line, index) => (
@@ -57,24 +57,24 @@ function RateOption({
   return (
     <label
       htmlFor={rate.rateId}
-      className="flex cursor-pointer flex-col gap-2 border border-[#c6c6c6] p-4"
+      className="flex cursor-pointer flex-col gap-2 border border-line p-4"
     >
       <div className="flex items-center justify-between gap-4">
         <div className="flex min-w-0 flex-1 items-center gap-2">
           <RadioGroupItem
             id={rate.rateId}
             value={rate.rateId}
-            className="size-4 shrink-0 rounded-full border-[#c6c6c6] data-checked:border-[#1f1f1f] data-checked:bg-[#1f1f1f] data-checked:text-white"
+            className="size-4 shrink-0 rounded-full border-line data-checked:border-ink data-checked:bg-ink data-checked:text-white"
           />
-          <p className="text-[16px] font-semibold leading-6 text-[#1f1f1f]">
+          <p className="text-base font-semibold leading-6 text-ink">
             {rate.rateName}
           </p>
         </div>
         <div className="shrink-0 text-right">
-          <p className="text-[16px] font-semibold leading-6 text-[#1f1f1f]">
+          <p className="text-base font-semibold leading-6 text-ink">
             {formatEuro(rate.totalPrice)}
           </p>
-          <p className="text-[13px] tracking-[0.2px] text-[#5e5e5e]">
+          <p className="text-caption tracking-label text-ink-muted">
             {personLabel}, {nightLabel}
           </p>
         </div>
@@ -83,13 +83,13 @@ function RateOption({
         <RatePolicyText boardType={rate.boardType} />
       ) : (
         <div className="flex items-center gap-1 pl-6">
-          <span className="text-[13px] tracking-[0.2px] text-[#1f1f1f]">
+          <span className="text-caption tracking-label text-ink">
             Show rate details
           </span>
           <HugeiconsIcon
             icon={ArrowDown01Icon}
             strokeWidth={2}
-            className="size-4 text-[#1f1f1f]"
+            className="size-4 text-ink"
           />
         </div>
       )}
@@ -107,8 +107,8 @@ export function CartRatePicker({
   if (rates.length === 0) return null;
 
   return (
-    <section className="border-b border-t border-[#c6c6c6] px-4 py-6">
-      <p className="mb-4 text-center text-[16px] font-semibold leading-6 text-[#1f1f1f]">
+    <section className="border-b border-t border-line px-4 py-6">
+      <p className="mb-4 text-center text-base font-semibold leading-6 text-ink">
         CHOOSE RATE
       </p>
       <RadioGroup

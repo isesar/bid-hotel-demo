@@ -21,12 +21,12 @@ export function AccommodationSkeleton({
         <div
           key={index}
           className={cn(
-            "border border-[#c6c6c6]",
+            "border border-line",
             layout === "desktop" ? "px-10 py-4" : "border-x-0 border-t p-4"
           )}
         >
-          <Skeleton className="mb-2 h-7 w-3/4 rounded-none bg-[#f3f3f3]" />
-          <Skeleton className="h-5 w-1/2 rounded-none bg-[#f3f3f3]" />
+          <Skeleton className="mb-2 h-7 w-3/4 rounded-none bg-surface" />
+          <Skeleton className="h-5 w-1/2 rounded-none bg-surface" />
         </div>
       ))}
     </div>

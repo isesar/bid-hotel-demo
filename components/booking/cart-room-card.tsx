@@ -38,26 +38,26 @@ export function CartRoomCard({
   const isMobile = layout === "mobile";
 
   return (
-    <div className="border border-[#c6c6c6] bg-white">
+    <div className="border border-line bg-white">
       <div className="flex items-start justify-between gap-2 px-4 py-2">
         <div className="min-w-0 flex-1">
           {isMobile && propertyName ? (
-            <p className="text-[13px] leading-[18px] tracking-[0.2px] text-[#5e5e5e]">
+            <p className="text-caption leading-[18px] tracking-label text-ink-muted">
               {propertyName}
             </p>
           ) : null}
-          <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+          <p className="text-base font-semibold leading-6 tracking-label text-ink">
             {line.name}
           </p>
           <p
             className={cn(
-              "text-[13px] tracking-[0.2px] text-[#5e5e5e]",
+              "text-caption tracking-label text-ink-muted",
               isMobile ? "leading-[18px]" : "leading-4"
             )}
           >
             {line.rateName}
           </p>
-          <p className="text-[13px] leading-[18px] tracking-[0.2px] text-[#5e5e5e]">
+          <p className="text-caption leading-[18px] tracking-label text-ink-muted">
             {formatBoardType(line.boardType)}
           </p>
         </div>
@@ -65,7 +65,7 @@ export function CartRoomCard({
           type="button"
           onClick={onRemove}
           aria-label={`Remove ${line.name}`}
-          className="shrink-0 p-1 text-[#1f1f1f]"
+          className="shrink-0 p-1 text-ink"
         >
           <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} className="size-6" />
         </button>
@@ -90,29 +90,29 @@ export function CartRoomCard({
 
         {isMobile ? (
           <div className="flex justify-end gap-1">
-            <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+            <p className="text-base font-semibold leading-6 tracking-label text-ink">
               Total
             </p>
-            <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+            <p className="text-base font-semibold leading-6 tracking-label text-ink">
               {formatEuro(line.total)}
             </p>
           </div>
         ) : (
           <>
-            <div className="h-px w-full bg-[#c6c6c6]" />
+            <div className="h-px w-full bg-line" />
 
             <div className="flex items-center justify-between">
-              <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+              <p className="text-base font-semibold leading-6 tracking-label text-ink">
                 Total
               </p>
-              <p className="text-[16px] font-semibold leading-6 tracking-[0.2px] text-[#1f1f1f]">
+              <p className="text-base font-semibold leading-6 tracking-label text-ink">
                 {formatEuro(line.total)}
               </p>
             </div>
 
             <button
               type="button"
-              className="self-end border-b border-[#1f1f1f] text-[13px] tracking-[0.2px] text-[#1f1f1f]"
+              className="self-end border-b border-ink text-caption tracking-label text-ink"
             >
               Rate details
             </button>

@@ -34,13 +34,13 @@ export function CalendarTabs({
         <TabsTrigger
           value="accommodation"
           className={cn(
-            "h-full flex-1 flex-col gap-0 rounded-none border-0 border-b-2 border-[#c6c6c6] bg-transparent px-0 py-2 text-[13px] tracking-[0.2px] text-[#5e5e5e] shadow-none",
-            "data-[state=active]:border-[#1f1f1f] data-[state=active]:font-semibold data-[state=active]:text-[#1f1f1f]"
+            "h-full flex-1 flex-col gap-0 rounded-none border-0 border-b-2 border-line bg-transparent px-0 py-2 text-caption tracking-label text-ink-muted shadow-none",
+            "data-[state=active]:border-ink data-[state=active]:font-semibold data-[state=active]:text-ink"
           )}
         >
           <span>ACCOMMODATION</span>
           {propertyName ? (
-            <span className="text-[11px] font-semibold tracking-[0.2px] text-[#1f1f1f]">
+            <span className="text-mini font-semibold tracking-label text-ink">
               {propertyName}
             </span>
           ) : null}
@@ -48,8 +48,8 @@ export function CalendarTabs({
         <TabsTrigger
           value="dates"
           className={cn(
-            "h-full flex-1 rounded-none border-0 border-b-2 border-[#c6c6c6] bg-transparent px-0 py-2 text-[13px] tracking-[0.2px] text-[#5e5e5e] shadow-none",
-            "data-[state=active]:border-[#1f1f1f] data-[state=active]:font-semibold data-[state=active]:text-[#1f1f1f]"
+            "h-full flex-1 rounded-none border-0 border-b-2 border-line bg-transparent px-0 py-2 text-caption tracking-label text-ink-muted shadow-none",
+            "data-[state=active]:border-ink data-[state=active]:font-semibold data-[state=active]:text-ink"
           )}
         >
           DATES

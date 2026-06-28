@@ -38,13 +38,13 @@ export function RoomSearchSummary({
         <HugeiconsIcon
           icon={Search01Icon}
           strokeWidth={2}
-          className="size-8 shrink-0 text-[#1f1f1f]"
+          className="size-8 shrink-0 text-ink"
         />
         <div className="min-w-0">
-          <p className="truncate text-[13px] font-semibold tracking-[0.2px] text-[#1f1f1f]">
+          <p className="truncate text-caption font-semibold tracking-label text-ink">
             {propertyName}
           </p>
-          <p className="truncate text-[13px] tracking-[0.2px] text-[#5e5e5e]">
+          <p className="truncate text-caption tracking-label text-ink-muted">
             {formatDateRange(checkin, checkout)} ({nightLabel})
           </p>
         </div>
@@ -56,7 +56,7 @@ export function RoomSearchSummary({
             `/book/calendar?property=${encodeURIComponent(propertyId)}`
           )
         }
-        className="shrink-0 border-b border-[#1f1f1f] p-2 text-[13px] font-semibold tracking-[0.2px] text-[#1f1f1f]"
+        className="shrink-0 border-b border-ink p-2 text-caption font-semibold tracking-label text-ink"
       >
         EDIT
       </button>

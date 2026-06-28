@@ -30,16 +30,16 @@ export function CalendarConfirmBar({
     return (
       <div
         className={cn(
-          "flex items-center justify-end gap-4 border-t border-[#c6c6c6] px-6 py-4",
+          "flex items-center justify-end gap-4 border-t border-line px-6 py-4",
           className
         )}
       >
         {hasRange ? (
           <div className="mr-auto text-left">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2px] text-[#5e5e5e]">
+            <p className="text-mini font-semibold uppercase tracking-label text-ink-muted">
               {nights} {nights === 1 ? "NIGHT" : "NIGHTS"}
             </p>
-            <p className="text-base font-semibold tracking-[0.2px] text-[#1f1f1f]">
+            <p className="text-base font-semibold tracking-label text-ink">
               {formatDateRange(from!, to!)}
             </p>
           </div>
@@ -48,7 +48,7 @@ export function CalendarConfirmBar({
           type="button"
           onClick={onConfirm}
           disabled={disabled || !hasRange}
-          className="h-12 min-w-[140px] rounded-none bg-[#1f1f1f] px-8 text-sm font-semibold tracking-[0.2px] text-white hover:bg-[#1f1f1f]/90 disabled:bg-[#c6c6c6]"
+          className="h-12 min-w-[140px] rounded-none bg-ink px-8 text-sm font-semibold tracking-label text-white hover:bg-ink/90 disabled:bg-line"
         >
           CONFIRM
         </Button>
@@ -59,22 +59,22 @@ export function CalendarConfirmBar({
   return (
     <div
       className={cn(
-        "flex shrink-0 items-center justify-between gap-4 border-t border-[#c6c6c6] bg-white px-4 py-4",
+        "flex shrink-0 items-center justify-between gap-4 border-t border-line bg-white px-4 py-4",
         className
       )}
     >
       <div className="min-w-0 flex-1">
         {hasRange ? (
           <>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2px] text-[#5e5e5e]">
+            <p className="text-mini font-semibold uppercase tracking-label text-ink-muted">
               {nights} {nights === 1 ? "NIGHT" : "NIGHTS"}
             </p>
-            <p className="truncate text-base font-semibold tracking-[0.2px] text-[#1f1f1f]">
+            <p className="truncate text-base font-semibold tracking-label text-ink">
               {formatDateRange(from!, to!)}
             </p>
           </>
         ) : (
-          <p className="text-sm tracking-[0.2px] text-[#5e5e5e]">
+          <p className="text-sm tracking-label text-ink-muted">
             Select check-in and check-out dates
           </p>
         )}
@@ -83,7 +83,7 @@ export function CalendarConfirmBar({
         type="button"
         onClick={onConfirm}
         disabled={disabled || !hasRange}
-        className="h-12 shrink-0 rounded-none bg-[#1f1f1f] px-8 text-sm font-semibold tracking-[0.2px] text-white hover:bg-[#1f1f1f]/90 disabled:bg-[#c6c6c6]"
+        className="h-12 shrink-0 rounded-none bg-ink px-8 text-sm font-semibold tracking-label text-white hover:bg-ink/90 disabled:bg-line"
       >
         CONFIRM
       </Button>

@@ -16,7 +16,7 @@ export function BookingCloseButton({ className }: BookingCloseButtonProps) {
       <Button
         variant="ghost"
         size="icon"
-        className={cn("size-6 shrink-0 text-[#1f1f1f] hover:bg-transparent", className)}
+        className={cn("size-6 shrink-0 text-ink hover:bg-transparent", className)}
       >
         <HugeiconsIcon icon={Cancel01Icon} strokeWidth={2} className="size-6" />
         <span className="sr-only">Close</span>

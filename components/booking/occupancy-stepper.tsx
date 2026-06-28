@@ -30,7 +30,7 @@ function StepperButton({
       disabled={disabled}
       onClick={onClick}
       className={cn(
-        "flex size-8 shrink-0 items-center justify-center border border-[#c6c6c6] bg-white text-[#1f1f1f] disabled:cursor-not-allowed disabled:opacity-40"
+        "flex size-8 shrink-0 items-center justify-center border border-line bg-white text-ink disabled:cursor-not-allowed disabled:opacity-40"
       )}
     >
       {children}
@@ -53,11 +53,11 @@ export function OccupancyStepper({
   return (
     <div className={cn("flex items-center justify-between gap-4", className)}>
       <div className="min-w-0">
-        <p className="text-[16px] leading-6 tracking-[0.2px] text-[#1f1f1f]">
+        <p className="text-base leading-6 tracking-label text-ink">
           {label}
         </p>
         {sublabel ? (
-          <p className="text-[9px] leading-[11px] tracking-[0.2px] text-[#5e5e5e]">
+          <p className="text-micro leading-[11px] tracking-label text-ink-muted">
             {sublabel}
           </p>
         ) : null}
@@ -69,7 +69,7 @@ export function OccupancyStepper({
         >
           <HugeiconsIcon icon={MinusSignIcon} strokeWidth={2} className="size-6" />
         </StepperButton>
-        <div className="flex h-8 w-10 items-center justify-center border-y border-[#c6c6c6] bg-white text-[13px] font-semibold leading-4 tracking-[0.2px] text-[#1f1f1f]">
+        <div className="flex h-8 w-10 items-center justify-center border-y border-line bg-white text-caption font-semibold leading-4 tracking-label text-ink">
           {value}
         </div>
         <StepperButton
