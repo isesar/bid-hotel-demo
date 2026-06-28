@@ -8,7 +8,7 @@ import { formatEuro } from "@/lib/booking/format";
 import {
   CartRoomCard,
   type CartRoomLine,
-} from "@/components/booking/cart-room-card";
+} from "@/components/booking/cart/cart-room-card";
 import {
   Sheet,
   SheetContent,

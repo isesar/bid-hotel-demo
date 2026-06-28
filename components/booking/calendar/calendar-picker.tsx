@@ -16,11 +16,11 @@ import { cn } from "@/lib/utils";
 import { useCalendar, useProperties } from "@/hooks/use-booking-queries";
 
 import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
-import { CalendarConfirmBar } from "@/components/booking/calendar-confirm-bar";
-import { CalendarLegend } from "@/components/booking/calendar-legend";
-import { CalendarTabs } from "@/components/booking/calendar-tabs";
+import { CalendarConfirmBar } from "@/components/booking/calendar/calendar-confirm-bar";
+import { CalendarLegend } from "@/components/booking/calendar/calendar-legend";
+import { CalendarTabs } from "@/components/booking/calendar/calendar-tabs";
 import { PaginationDots } from "@/components/booking/pagination-dots";
-import { PriceCalendar } from "@/components/booking/price-calendar";
+import { PriceCalendar } from "@/components/booking/calendar/price-calendar";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const HERO_IMAGE =

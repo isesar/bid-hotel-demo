@@ -6,11 +6,11 @@ import { Cancel01Icon, PlusSignIcon } from "@hugeicons/core-free-icons";
 import { formatEuro } from "@/lib/booking/format";
 import type { Rate } from "@/lib/booking/types";
 
-import { CartRatePicker } from "@/components/booking/cart-rate-picker";
+import { CartRatePicker } from "@/components/booking/cart/cart-rate-picker";
 import {
   CartRoomCard,
   type CartRoomLine,
-} from "@/components/booking/cart-room-card";
+} from "@/components/booking/cart/cart-room-card";
 
 type CartMobileProps = {
   open: boolean;

@@ -7,7 +7,7 @@ import { formatBoardType, formatEuro } from "@/lib/booking/format";
 import type { RoomSelection } from "@/lib/booking/search-params";
 import { cn } from "@/lib/utils";
 
-import { OccupancyStepper } from "@/components/booking/occupancy-stepper";
+import { OccupancyStepper } from "@/components/booking/cart/occupancy-stepper";
 
 export type CartRoomLine = RoomSelection & {
   name: string;

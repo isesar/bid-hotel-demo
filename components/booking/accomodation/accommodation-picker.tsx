@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
 import { AccommodationSkeleton } from "@/components/booking/accomodation/accommodation-skeleton";
 import { AccommodationTabs } from "@/components/booking/accomodation/accommodation-tabs";
-import { HotelList } from "@/components/booking/hotel-list";
+import { HotelList } from "@/components/booking/hotel/hotel-list";
 import { PaginationDots } from "@/components/booking/pagination-dots";
 
 const HERO_IMAGE =

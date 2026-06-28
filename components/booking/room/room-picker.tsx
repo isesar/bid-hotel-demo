@@ -14,11 +14,11 @@ import {
   useUnits,
 } from "@/hooks/use-booking-queries";
 
-import { CartDrawer } from "@/components/booking/cart-drawer";
-import { CartMobile } from "@/components/booking/cart-mobile";
-import type { CartRoomLine } from "@/components/booking/cart-room-card";
-import { RoomCard, type RoomCardData } from "@/components/booking/room-card";
-import { RoomSearchSummary } from "@/components/booking/room-search-summary";
+import { CartDrawer } from "@/components/booking/cart/cart-drawer";
+import { CartMobile } from "@/components/booking/cart/cart-mobile";
+import type { CartRoomLine } from "@/components/booking/cart/cart-room-card";
+import { RoomCard, type RoomCardData } from "@/components/booking/room/room-card";
+import { RoomSearchSummary } from "@/components/booking/room/room-search-summary";
 import { BOOKING_STEPS, Stepper } from "@/components/booking/stepper";
 import { Skeleton } from "@/components/ui/skeleton";
 

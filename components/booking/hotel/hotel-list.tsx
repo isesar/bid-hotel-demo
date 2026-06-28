@@ -8,7 +8,7 @@ import { RadioGroup } from "@/components/ui/radio-group";
 import {
   HotelOptionCard,
   SeeAllHotelsCard,
-} from "@/components/booking/hotel-option-card";
+} from "@/components/booking/hotel/hotel-option-card";
 
 type HotelListProps = {
   properties: Property[];
