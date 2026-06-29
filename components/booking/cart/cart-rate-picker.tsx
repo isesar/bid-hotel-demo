@@ -1,6 +1,6 @@
 "use client";
 
-import { formatBoardType, formatEuro } from "@/lib/booking/format";
+import { formatBoardType, formatEuro, formatNightsLabel } from "@/lib/booking/format";
 import type { Rate } from "@/lib/booking/types";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowDown01Icon } from "@hugeicons/core-free-icons";
@@ -51,7 +51,7 @@ function RateOption({
   nights: number;
   isFirst: boolean;
 }) {
-  const nightLabel = nights === 1 ? "1 night" : `${nights} nights`;
+  const nightLabel = formatNightsLabel(nights);
   const personLabel = persons === 1 ? "1 person" : `${persons} persons`;
 
   return (

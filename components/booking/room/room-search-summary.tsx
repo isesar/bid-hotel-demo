@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { formatDateRange } from "@/lib/booking/calendar-utils";
+import { formatNightsLabel } from "@/lib/booking/format";
 import { cn } from "@/lib/utils";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Search01Icon } from "@hugeicons/core-free-icons";
@@ -27,7 +28,7 @@ export function RoomSearchSummary({
   className,
 }: RoomSearchSummaryProps) {
   const router = useRouter();
-  const nightLabel = nights === 1 ? "1 night" : `${nights} nights`;
+  const nightLabel = formatNightsLabel(nights);
 
   return (
     <div

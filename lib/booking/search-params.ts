@@ -53,7 +53,7 @@ const parseAsRoomSelections = createParser({
   },
 });
 
-export const bookingParsers = {
+const bookingParsers = {
   property: parseAsString.withDefault(""),
   checkin: parseAsIsoDate,
   nights: parseAsInteger,
@@ -62,7 +62,7 @@ export const bookingParsers = {
   rooms: parseAsRoomSelections,
 };
 
-export const bookingDefaults = {
+const bookingDefaults = {
   nights: 1,
   adults: 2,
   children: 0,

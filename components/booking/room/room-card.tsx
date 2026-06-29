@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
-import { formatBoardType, formatEuro } from "@/lib/booking/format";
+import { formatBoardType, formatEuro, formatNightsLabel } from "@/lib/booking/format";
 import type { Rate } from "@/lib/booking/types";
 
 import { Button } from "@/components/ui/button";
@@ -71,7 +72,7 @@ function DesktopRateRow({
   nights: number;
   onSelect: () => void;
 }) {
-  const nightLabel = nights === 1 ? "1 night" : `${nights} nights`;
+  const nightLabel = formatNightsLabel(nights);
   const personLabel = persons === 1 ? "1 person" : `${persons} persons`;
 
   return (
@@ -118,11 +119,14 @@ function DesktopRoomCard({
   return (
     <div className="hidden flex-col border border-line bg-white md:flex">
       <div className="flex w-full gap-4">
-        <div className="relative min-w-0 flex-1">
-          <img
+        <div className="relative h-[318px] min-w-0 flex-1">
+          <Image
             src={room.image}
             alt={room.name}
-            className="h-[318px] w-full object-cover"
+            fill
+            unoptimized
+            sizes="(min-width: 768px) 50vw, 100vw"
+            className="object-cover"
           />
         </div>
         <div className="flex min-w-0 flex-1 flex-col justify-between px-4 py-6">
@@ -167,11 +171,16 @@ function MobileRoomCard({ room, onSelect }: RoomCardProps) {
 
   return (
     <div className="flex flex-col border border-line bg-white md:hidden">
-      <img
-        src={room.image}
-        alt={room.name}
-        className="h-[273px] w-full object-cover"
-      />
+      <div className="relative h-[273px] w-full">
+        <Image
+          src={room.image}
+          alt={room.name}
+          fill
+          unoptimized
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
       <div className="flex flex-col gap-4 p-4">
         <AvailabilityBadge unitsAvailable={room.unitsAvailable} />
         <p className="font-serif text-title tracking-label text-ink">

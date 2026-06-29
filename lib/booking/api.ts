@@ -1,5 +1,7 @@
 import type {
   AvailabilityResponse,
+  BookingRequest,
+  BookingResponse,
   CalendarResponse,
   PropertiesResponse,
   UnitsResponse,
@@ -60,4 +62,8 @@ export function getAvailability(
     `/properties/${propertyId}/availability`,
     { checkin, nights }
   );
+}
+
+export function createBooking(payload: BookingRequest) {
+  return postJson<BookingResponse>("/bookings", payload);
 }

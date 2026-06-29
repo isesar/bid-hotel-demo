@@ -2,51 +2,30 @@
 
 import { addDays, format } from "date-fns";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import type { DateRange } from "react-day-picker";
 
-import {
-  buildPriceMap,
-  getNightCount,
-  getVisibleRange,
-  isDayDisabled,
-} from "@/lib/booking/calendar-utils";
+import { getNightCount } from "@/lib/booking/calendar-utils";
 import { useBookingParams } from "@/lib/booking/search-params";
 import { cn } from "@/lib/utils";
-import { useCalendar, useProperties } from "@/hooks/use-booking-queries";
+import { useCalendarAvailability } from "@/hooks/use-calendar-availability";
+import { useBookingRouteGuard } from "@/hooks/use-booking-route-guard";
+import { useProperties } from "@/hooks/use-booking-queries";
 
 import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
-import { CalendarConfirmBar } from "@/components/booking/calendar/calendar-confirm-bar";
-import { CalendarLegend } from "@/components/booking/calendar/calendar-legend";
-import { CalendarTabs } from "@/components/booking/calendar/calendar-tabs";
+import {
+  DesktopCalendarPanel,
+  MobileCalendarPanel,
+} from "@/components/booking/calendar/calendar-panels";
 import { PaginationDots } from "@/components/booking/pagination-dots";
-import { PriceCalendar } from "@/components/booking/calendar/price-calendar";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const HERO_IMAGE =
   "https://images.unsplash.com/photo-1555992336-03a23c7b10cb?auto=format&fit=crop&w=1920&q=80";
 
-function CalendarSkeleton({ layout }: { layout: "desktop" | "mobile" }) {
-  return (
-    <div className="flex flex-col gap-4 px-4 py-6">
-      <Skeleton className="mx-auto h-8 w-32 rounded-none" />
-      <div
-        className={cn(
-          "grid gap-4",
-          layout === "desktop" ? "grid-cols-2" : "grid-cols-1"
-        )}
-      >
-        {Array.from({ length: layout === "desktop" ? 2 : 3 }).map((_, index) => (
-          <Skeleton key={index} className="h-64 w-full rounded-none" />
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function CalendarPicker() {
   const router = useRouter();
   const [{ property, checkin, nights }, setParams] = useBookingParams();
+  const { isReady } = useBookingRouteGuard();
   const [open, setOpen] = useState(true);
   const [activeTab, setActiveTab] = useState<"accommodation" | "dates">(
     "dates"
@@ -64,47 +43,16 @@ export function CalendarPicker() {
     (item) => item.id === property
   )?.name;
 
-  const desktopRange = useMemo(
-    () => getVisibleRange(month, "desktop"),
-    [month]
-  );
-  const mobileRange = useMemo(() => getVisibleRange(month, "mobile"), [month]);
-
   const {
-    data: desktopCalendar,
-    isLoading: desktopLoading,
-    isError: desktopError,
-  } = useCalendar(property || null, desktopRange.start, desktopRange.end);
-
-  const {
-    data: mobileCalendar,
-    isLoading: mobileLoading,
-    isError: mobileError,
-  } = useCalendar(property || null, mobileRange.start, mobileRange.end);
-
-  useEffect(() => {
-    if (!property) {
-      router.replace("/book/hotels");
-    }
-  }, [property, router]);
-
-  const desktopPriceMap = useMemo(
-    () => buildPriceMap(desktopCalendar?.days ?? []),
-    [desktopCalendar?.days]
-  );
-  const mobilePriceMap = useMemo(
-    () => buildPriceMap(mobileCalendar?.days ?? []),
-    [mobileCalendar?.days]
-  );
-
-  const desktopDisabled = useCallback(
-    (date: Date) => isDayDisabled(date, desktopPriceMap),
-    [desktopPriceMap]
-  );
-  const mobileDisabled = useCallback(
-    (date: Date) => isDayDisabled(date, mobilePriceMap),
-    [mobilePriceMap]
-  );
+    desktopLoading,
+    desktopError,
+    mobileLoading,
+    mobileError,
+    desktopPriceMap,
+    mobilePriceMap,
+    desktopDisabled,
+    mobileDisabled,
+  } = useCalendarAvailability(property || null, month);
 
   const selectedNights =
     selected?.from && selected?.to
@@ -142,45 +90,20 @@ export function CalendarPicker() {
     [property, router]
   );
 
-  if (!property) {
+  if (!isReady || !property) {
     return null;
   }
 
-  const desktopCalendarContent = desktopLoading ? (
-    <CalendarSkeleton layout="desktop" />
-  ) : desktopError ? (
-    <div className="p-10 text-center text-ink-muted">
-      Failed to load calendar availability.
-    </div>
-  ) : (
-    <PriceCalendar
-      layout="desktop"
-      month={month}
-      onMonthChange={setMonth}
-      selected={selected}
-      onSelect={setSelected}
-      priceMap={desktopPriceMap}
-      isDayDisabled={desktopDisabled}
-    />
-  );
-
-  const mobileCalendarContent = mobileLoading ? (
-    <CalendarSkeleton layout="mobile" />
-  ) : mobileError ? (
-    <div className="p-10 text-center text-ink-muted">
-      Failed to load calendar availability.
-    </div>
-  ) : (
-    <PriceCalendar
-      layout="mobile"
-      month={month}
-      onMonthChange={setMonth}
-      selected={selected}
-      onSelect={setSelected}
-      priceMap={mobilePriceMap}
-      isDayDisabled={mobileDisabled}
-    />
-  );
+  const sharedPanelProps = {
+    month,
+    onMonthChange: setMonth,
+    selected,
+    onSelect: setSelected,
+    selectedNights,
+    from: selected?.from ?? null,
+    to: selected?.to ?? null,
+    onConfirm: handleConfirm,
+  };
 
   return (
     <div className="relative min-h-screen flex-1">
@@ -201,52 +124,26 @@ export function CalendarPicker() {
         preventOutsideClose
         contentClassName="md:flex md:max-h-[90vh] md:h-[760px] md:w-full md:max-w-[1100px] md:flex-col"
       >
-        <div className="hidden min-h-0 flex-1 flex-col md:flex">
-          <div className="min-h-0 flex-1 overflow-y-auto">
-            {desktopCalendarContent}
-            <CalendarLegend />
-          </div>
-          <CalendarConfirmBar
-            layout="desktop"
-            nights={selectedNights}
-            from={selected?.from ?? null}
-            to={selected?.to ?? null}
-            onConfirm={handleConfirm}
-          />
-        </div>
+        <DesktopCalendarPanel
+          layout="desktop"
+          isLoading={desktopLoading}
+          isError={desktopError}
+          priceMap={desktopPriceMap}
+          isDayDisabled={desktopDisabled}
+          {...sharedPanelProps}
+        />
 
-        <div className="flex min-h-0 flex-1 flex-col md:hidden">
-          <CalendarTabs
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
-            propertyName={propertyName}
-            accommodationContent={
-              <div className="p-6 text-center text-ink-muted">
-                <p className="font-serif text-xl text-ink">
-                  {propertyName ?? "Selected property"}
-                </p>
-                <p className="mt-2 text-sm">
-                  Switch to Dates to choose your stay.
-                </p>
-              </div>
-            }
-            datesContent={
-              <div className="flex min-h-0 flex-1 flex-col">
-                <div className="min-h-0 flex-1 overflow-y-auto">
-                  {mobileCalendarContent}
-                </div>
-              </div>
-            }
-          />
-          <CalendarConfirmBar
-            layout="mobile"
-            nights={selectedNights}
-            from={selected?.from ?? null}
-            to={selected?.to ?? null}
-            onConfirm={handleConfirm}
-            className={activeTab === "dates" ? undefined : "hidden"}
-          />
-        </div>
+        <MobileCalendarPanel
+          layout="mobile"
+          isLoading={mobileLoading}
+          isError={mobileError}
+          priceMap={mobilePriceMap}
+          isDayDisabled={mobileDisabled}
+          activeTab={activeTab}
+          propertyName={propertyName}
+          onTabChange={handleTabChange}
+          {...sharedPanelProps}
+        />
       </AccommodationDialog>
 
       {open && (

@@ -1,94 +1,24 @@
 "use client";
 
-import { addDays, format } from "date-fns";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { addDays } from "date-fns";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
 
 import { formatDateRange } from "@/lib/booking/calendar-utils";
+import { formatNightsLabel } from "@/lib/booking/format";
+import { mergeRoomData } from "@/lib/booking/reservation-utils";
 import { useBookingParams } from "@/lib/booking/search-params";
-import type { AvailabilityUnit, Rate, Unit } from "@/lib/booking/types";
-import { cn } from "@/lib/utils";
-import {
-  useAvailability,
-  useProperties,
-  useUnits,
-} from "@/hooks/use-booking-queries";
+import { useBookingRouteGuard } from "@/hooks/use-booking-route-guard";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { useReservation } from "@/hooks/use-reservation";
 
 import { CartDrawer } from "@/components/booking/cart/cart-drawer";
 import { CartMobile } from "@/components/booking/cart/cart-mobile";
-import type { CartRoomLine } from "@/components/booking/cart/cart-room-card";
-import { RoomCard, type RoomCardData } from "@/components/booking/room/room-card";
+import { RoomAvailabilityHeader } from "@/components/booking/room/room-availability-header";
+import { RoomListContent } from "@/components/booking/room/room-list-content";
 import { RoomSearchSummary } from "@/components/booking/room/room-search-summary";
 import { BOOKING_STEPS, Stepper } from "@/components/booking/stepper";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-
-function subscribeMediaQuery(query: string, onChange: () => void) {
-  const mediaQuery = window.matchMedia(query);
-  mediaQuery.addEventListener("change", onChange);
-  return () => mediaQuery.removeEventListener("change", onChange);
-}
-
-function useMediaQuery(query: string) {
-  return useSyncExternalStore(
-    (onChange) => subscribeMediaQuery(query, onChange),
-    () => window.matchMedia(query).matches,
-    () => false
-  );
-}
-
-function mergeRoomData(
-  availabilityUnits: AvailabilityUnit[],
-  units: Unit[]
-): RoomCardData[] {
-  const unitMap = new Map(units.map((unit) => [unit.id, unit]));
-
-  return availabilityUnits
-    .filter((item) => item.unitsAvailable > 0 && item.rates.length > 0)
-    .map((item) => {
-      const unit = unitMap.get(item.unitId);
-
-      return {
-        unitId: item.unitId,
-        name: unit?.name ?? item.unitId,
-        image: unit?.image ?? "",
-        unitsAvailable: item.unitsAvailable,
-        occupancyMax: item.occupancy.max,
-        rates: item.rates,
-      };
-    });
-}
-
-function buildRateLookup(
-  availabilityUnits: AvailabilityUnit[],
-  units: Unit[]
-) {
-  const unitMap = new Map(units.map((unit) => [unit.id, unit]));
-  const lookup = new Map<
-    string,
-    {
-      rate: Rate;
-      unitId: string;
-      name: string;
-      occupancyMax: number;
-    }
-  >();
-
-  for (const item of availabilityUnits) {
-    const unit = unitMap.get(item.unitId);
-
-    for (const rate of item.rates) {
-      lookup.set(rate.rateId, {
-        rate,
-        unitId: item.unitId,
-        name: unit?.name ?? item.unitId,
-        occupancyMax: item.occupancy.max,
-      });
-    }
-  }
-
-  return lookup;
-}
 
 function RoomListSkeleton() {
   return (
@@ -102,70 +32,31 @@ function RoomListSkeleton() {
 
 export function RoomPicker() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [{ property, checkin, nights, adults, children, rooms }, setParams] =
     useBookingParams();
+  const { isReady } = useBookingRouteGuard({ requireCheckin: true });
   const [cartOpen, setCartOpen] = useState(false);
   const [pendingUnitId, setPendingUnitId] = useState<string | null>(null);
 
-  const checkinParam = checkin ? format(checkin, "yyyy-MM-dd") : null;
+  const {
+    checkinParam,
+    propertyName,
+    cartLines,
+    grandTotal,
+    availabilityLoading,
+    availabilityError,
+    availabilityUnits,
+    units,
+  } = useReservation();
+
   const checkout = checkin ? addDays(checkin, nights) : null;
   const persons = adults + children;
 
-  const { data: propertiesData } = useProperties();
-  const {
-    data: availabilityData,
-    isLoading: availabilityLoading,
-    isError: availabilityError,
-  } = useAvailability(property || null, checkinParam, nights);
-  const { data: unitsData } = useUnits(property || null);
-
-  const propertyName =
-    propertiesData?.properties.find((item) => item.id === property)?.name ??
-    "Selected property";
-
   const availableRooms = useMemo(
-    () =>
-      mergeRoomData(
-        availabilityData?.units ?? [],
-        unitsData?.units ?? []
-      ),
-    [availabilityData?.units, unitsData?.units]
-  );
-
-  const rateLookup = useMemo(
-    () =>
-      buildRateLookup(
-        availabilityData?.units ?? [],
-        unitsData?.units ?? []
-      ),
-    [availabilityData?.units, unitsData?.units]
-  );
-
-  const cartLines = useMemo((): CartRoomLine[] => {
-    return rooms
-      .map((selection) => {
-        const resolved = rateLookup.get(selection.rateId);
-
-        if (!resolved || resolved.unitId !== selection.unitId) {
-          return null;
-        }
-
-        return {
-          ...selection,
-          name: resolved.name,
-          rateName: resolved.rate.rateName,
-          boardType: resolved.rate.boardType,
-          total: resolved.rate.totalPrice,
-          occupancyMax: resolved.occupancyMax,
-        };
-      })
-      .filter((line): line is CartRoomLine => line !== null);
-  }, [rateLookup, rooms]);
-
-  const grandTotal = useMemo(
-    () => cartLines.reduce((sum, line) => sum + line.total, 0),
-    [cartLines]
+    () => mergeRoomData(availabilityUnits, units),
+    [availabilityUnits, units]
   );
 
   const pendingUnitRates = useMemo(() => {
@@ -178,20 +69,7 @@ export function RoomPicker() {
     return rooms.find((room) => room.unitId === pendingUnitId)?.rateId ?? null;
   }, [pendingUnitId, rooms]);
 
-  const nightsLabel = nights === 1 ? "1 night" : `${nights} nights`;
-
-  useEffect(() => {
-    if (!property) {
-      router.replace("/book/hotels");
-      return;
-    }
-
-    if (!checkin) {
-      router.replace(
-        `/book/calendar?property=${encodeURIComponent(property)}`
-      );
-    }
-  }, [property, checkin, router]);
+  const nightsLabel = formatNightsLabel(nights);
 
   const handleSelect = useCallback(
     async (unitId: string, rateId: string) => {
@@ -283,12 +161,11 @@ export function RoomPicker() {
   const handleContinue = useCallback(() => {
     if (!property || !checkinParam || cartLines.length === 0) return;
 
-    router.push(
-      `/book/payment?property=${encodeURIComponent(property)}&checkin=${checkinParam}&nights=${nights}`
-    );
-  }, [cartLines.length, checkinParam, nights, property, router]);
+    const query = searchParams.toString();
+    router.push(query ? `/book/payment?${query}` : "/book/payment");
+  }, [cartLines.length, checkinParam, property, router, searchParams]);
 
-  if (!property || !checkin || !checkout) {
+  if (!isReady || !property || !checkin || !checkout) {
     return null;
   }
 
@@ -317,43 +194,17 @@ export function RoomPicker() {
           </p>
         ) : (
           <>
-            <div className="flex flex-col items-center gap-3">
-              <p className="text-center text-base font-semibold text-ink">
-                {availabilityLabel}
-              </p>
-              {cartLines.length > 0 ? (
-                <Button
-                  type="button"
-                  variant="link"
-                  onClick={handleOpenCart}
-                  className="h-auto rounded-none border-b border-ink p-0 text-caption font-semibold tracking-label text-ink no-underline hover:no-underline"
-                >
-                  VIEW CART ({cartLines.length})
-                </Button>
-              ) : null}
-            </div>
-            <div
-              className={cn(
-                "flex flex-col gap-6",
-                roomCount === 0 && "py-10"
-              )}
-            >
-              {roomCount === 0 ? (
-                <p className="text-center text-ink-muted">
-                  No rooms available for the selected dates.
-                </p>
-              ) : (
-                availableRooms.map((room) => (
-                  <RoomCard
-                    key={room.unitId}
-                    room={room}
-                    persons={persons}
-                    nights={nights}
-                    onSelect={handleSelect}
-                  />
-                ))
-              )}
-            </div>
+            <RoomAvailabilityHeader
+              availabilityLabel={availabilityLabel}
+              cartCount={cartLines.length}
+              onOpenCart={handleOpenCart}
+            />
+            <RoomListContent
+              availableRooms={availableRooms}
+              persons={persons}
+              nights={nights}
+              onSelect={handleSelect}
+            />
           </>
         )}
       </div>

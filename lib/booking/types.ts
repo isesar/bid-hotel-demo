@@ -56,3 +56,40 @@ export type AvailabilityResponse = {
   nights: number;
   units: AvailabilityUnit[];
 };
+
+export type BookingUnit = {
+  unitId: string;
+  rateId: string;
+  quantity: number;
+};
+
+export type BookingGuest = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
+
+export type BookingPayment = {
+  cardNumber: string;
+  cvv: string;
+  expiration: string;
+  holderFirst: string;
+  holderLast: string;
+};
+
+export type BookingRequest = {
+  propertyId: string;
+  checkin: string;
+  nights: number;
+  units: BookingUnit[];
+  guest: BookingGuest;
+  payment: BookingPayment;
+};
+
+export type BookingResponse = {
+  bookingId?: string;
+  reference?: string;
+  status?: string;
+  [key: string]: unknown;
+};

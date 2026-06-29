@@ -18,3 +18,7 @@ const euroFormatter = new Intl.NumberFormat("de-DE", {
 export function formatEuro(value: number) {
   return euroFormatter.format(value);
 }
+
+export function formatNightsLabel(nights: number) {
+  return nights === 1 ? "1 night" : `${nights} nights`;
+}
