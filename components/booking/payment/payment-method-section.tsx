@@ -132,6 +132,7 @@ export function PaymentMethodSection({
               <label className="flex cursor-pointer items-start gap-4">
                 <Checkbox
                   checked={field.value ?? false}
+
                   onCheckedChange={(checked) =>
                     field.onChange(checked === true)
                   }
@@ -188,7 +189,7 @@ export function PaymentMethodSection({
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="h-14 w-full rounded-none bg-ink px-4 text-base font-normal tracking-label text-surface hover:bg-ink disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-muted"
+          className="h-14 w-full rounded-none cursor-pointer bg-ink px-4 text-base font-normal tracking-label text-surface hover:bg-ink disabled:cursor-not-allowed disabled:bg-line disabled:text-ink-muted"
         >
           {isSubmitting ? "CONFIRMING..." : "CONFIRM RESERVATION"}
         </Button>

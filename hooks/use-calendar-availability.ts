@@ -13,53 +13,33 @@ import { useCalendar } from "@/hooks/use-booking-queries";
 
 export function useCalendarAvailability(
   property: string | null,
-  month: Date
+  month: Date,
+  layout: "desktop" | "mobile",
+  enabled: boolean
 ) {
-  const desktopRange = useMemo(
-    () => getVisibleRange(month, "desktop"),
-    [month]
-  );
-  const mobileRange = useMemo(() => getVisibleRange(month, "mobile"), [month]);
+  const range = useMemo(() => getVisibleRange(month, layout), [month, layout]);
 
   const {
-    data: desktopCalendar,
-    isLoading: desktopLoading,
-    isError: desktopError,
-  } = useCalendar(property, desktopRange.start, desktopRange.end);
+    data: calendar,
+    isLoading,
+    isError,
+  } = useCalendar(property, range.start, range.end, enabled);
 
-  const {
-    data: mobileCalendar,
-    isLoading: mobileLoading,
-    isError: mobileError,
-  } = useCalendar(property, mobileRange.start, mobileRange.end);
-
-  const desktopPriceMap = useMemo(
-    () => buildPriceMap(desktopCalendar?.days ?? []),
-    [desktopCalendar?.days]
-  );
-  const mobilePriceMap = useMemo(
-    () => buildPriceMap(mobileCalendar?.days ?? []),
-    [mobileCalendar?.days]
+  const priceMap = useMemo(
+    () => buildPriceMap(calendar?.days ?? []),
+    [calendar?.days]
   );
 
-  const desktopDisabled = useCallback(
-    (date: Date) => isDayDisabled(date, desktopPriceMap),
-    [desktopPriceMap]
-  );
-  const mobileDisabled = useCallback(
-    (date: Date) => isDayDisabled(date, mobilePriceMap),
-    [mobilePriceMap]
+  const isDayDisabledFn = useCallback(
+    (date: Date) => isDayDisabled(date, priceMap),
+    [priceMap]
   );
 
   return {
-    desktopLoading,
-    desktopError,
-    mobileLoading,
-    mobileError,
-    desktopPriceMap,
-    mobilePriceMap,
-    desktopDisabled,
-    mobileDisabled,
+    isLoading,
+    isError,
+    priceMap,
+    isDayDisabled: isDayDisabledFn,
   };
 }
 

@@ -61,7 +61,7 @@ export function GuestDetailsSection({
           <label className="text-caption font-semibold uppercase leading-4 tracking-label text-ink">
             CONTACT NUMBER
           </label>
-          <div className="flex">
+          <div className="flex items-start">
             <div className="flex shrink-0 items-center gap-2.5 border border-line bg-white px-4 py-3 text-base leading-6 tracking-label text-ink-muted">
               HR +385
             </div>

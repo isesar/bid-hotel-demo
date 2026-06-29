@@ -1,13 +1,11 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import { listUnits } from "@/lib/booking/api";
+import { clearBookingCompleted } from "@/lib/booking/booking-session";
 import { usePropertySelection } from "@/lib/booking/search-params";
-import { cn } from "@/lib/utils";
-import { useProperties, useUnits } from "@/hooks/use-booking-queries";
+import { useProperties } from "@/hooks/use-booking-queries";
 
 import { Button } from "@/components/ui/button";
 import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
@@ -16,8 +14,6 @@ import { AccommodationTabs } from "@/components/booking/accomodation/accommodati
 import { HotelList } from "@/components/booking/hotel/hotel-list";
 import { PaginationDots } from "@/components/booking/pagination-dots";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1555992336-03a23c7b10cb?auto=format&fit=crop&w=1920&q=80";
 
 function PropertiesError({ message }: { message: string }) {
   return (
@@ -31,23 +27,23 @@ export function AccommodationPicker() {
   const [activeTab, setActiveTab] = useState<"accommodation" | "dates">(
     "accommodation"
   );
-  const { property: selectedPropertyId } = usePropertySelection();
+  const { property: selectedPropertyId, selectProperty } =
+    usePropertySelection();
 
-  const queryClient = useQueryClient();
   const { data, isLoading, isError, error } = useProperties();
-  useUnits(selectedPropertyId);
+
+  useEffect(() => {
+    clearBookingCompleted();
+  }, []);
 
   const handleSelectProperty = useCallback(
-    (propertyId: string) => {
-      void queryClient.prefetchQuery({
-        queryKey: ["units", propertyId],
-        queryFn: () => listUnits(propertyId),
-      });
+    async (propertyId: string) => {
+      await selectProperty(propertyId);
       router.push(
         `/book/calendar?property=${encodeURIComponent(propertyId)}`
       );
     },
-    [queryClient, router]
+    [router, selectProperty]
   );
 
   const properties = data?.properties ?? [];
@@ -82,15 +78,6 @@ export function AccommodationPicker() {
 
   return (
     <div className="relative min-h-screen flex-1">
-      <div
-        aria-hidden
-        className={cn(
-          "absolute inset-0 bg-cover bg-center",
-          open ? "max-md:hidden" : "block"
-        )}
-        style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-      />
-
       <AccommodationDialog
         open={open}
         onOpenChange={setOpen}

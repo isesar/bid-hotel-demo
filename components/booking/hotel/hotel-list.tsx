@@ -45,7 +45,6 @@ export function HotelList({
             subtitle={formatPropertyType(property.type)}
             selected={selectedPropertyId === property.id}
             layout={layout}
-            onSelect={() => onSelectProperty(property.id)}
           />
         ))}
       </RadioGroup>

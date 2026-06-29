@@ -1,9 +1,8 @@
+import { Fragment } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { Tick02Icon } from "@hugeicons/core-free-icons";
 
 import { cn } from "@/lib/utils";
-
-import { Separator } from "@/components/ui/separator";
 
 type StepperProps = {
   steps: string[];
@@ -20,14 +19,14 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
       )}
     >
       {steps.map((label, index) => (
-        <div key={label} className="flex items-center gap-6">
+        <Fragment key={label}>
           {index > 0 ? (
-            <>
-              <Separator className="w-6 shrink-0 bg-line" />
-            </>
-
+            <div
+              className="h-px w-8 shrink-0 bg-line"
+              aria-hidden
+            />
           ) : null}
-          <div className="flex items-center gap-2">
+          <div className="relative z-10 flex items-center gap-2 bg-white">
             {index < activeStep ? (
               <HugeiconsIcon
                 icon={Tick02Icon}
@@ -50,7 +49,7 @@ export function Stepper({ steps, activeStep, className }: StepperProps) {
               {label}
             </span>
           </div>
-        </div>
+        </Fragment>
       ))}
     </div>
   );

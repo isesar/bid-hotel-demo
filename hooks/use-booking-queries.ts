@@ -31,12 +31,13 @@ export function useUnits(propertyId: string | null) {
 export function useCalendar(
   propertyId: string | null,
   start: string | null,
-  end: string | null
+  end: string | null,
+  enabled = true
 ) {
   return useQuery({
     queryKey: ["calendar", propertyId, start, end],
     queryFn: () => getCalendar(propertyId!, start!, end!),
-    enabled: Boolean(propertyId && start && end),
+    enabled: enabled && Boolean(propertyId && start && end),
     staleTime: STALE_TIME,
   });
 }

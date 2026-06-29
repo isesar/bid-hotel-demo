@@ -3,6 +3,10 @@ import type { RoomCardData } from "@/components/booking/room/room-card";
 import type { AvailabilityUnit, Rate, Unit } from "@/lib/booking/types";
 import type { RoomSelection } from "@/lib/booking/search-params";
 
+export function rateLookupKey(unitId: string, rateId: string) {
+  return `${unitId}:${rateId}`;
+}
+
 export function buildRateLookup(
   availabilityUnits: AvailabilityUnit[],
   units: Unit[]
@@ -22,7 +26,7 @@ export function buildRateLookup(
     const unit = unitMap.get(item.unitId);
 
     for (const rate of item.rates) {
-      lookup.set(rate.rateId, {
+      lookup.set(rateLookupKey(item.unitId, rate.rateId), {
         rate,
         unitId: item.unitId,
         name: unit?.name ?? item.unitId,
@@ -40,9 +44,11 @@ export function buildCartLines(
 ): CartRoomLine[] {
   return rooms
     .map((selection) => {
-      const resolved = rateLookup.get(selection.rateId);
+      const resolved = rateLookup.get(
+        rateLookupKey(selection.unitId, selection.rateId)
+      );
 
-      if (!resolved || resolved.unitId !== selection.unitId) {
+      if (!resolved) {
         return null;
       }
 

@@ -10,6 +10,7 @@ import { useBookingParams } from "@/lib/booking/search-params";
 import { cn } from "@/lib/utils";
 import { useCalendarAvailability } from "@/hooks/use-calendar-availability";
 import { useBookingRouteGuard } from "@/hooks/use-booking-route-guard";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { useProperties } from "@/hooks/use-booking-queries";
 
 import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
@@ -43,16 +44,31 @@ export function CalendarPicker() {
     (item) => item.id === property
   )?.name;
 
+  const isDesktop = useMediaQuery("(min-width: 768px)");
+
   const {
-    desktopLoading,
-    desktopError,
-    mobileLoading,
-    mobileError,
-    desktopPriceMap,
-    mobilePriceMap,
-    desktopDisabled,
-    mobileDisabled,
-  } = useCalendarAvailability(property || null, month);
+    isLoading: desktopLoading,
+    isError: desktopError,
+    priceMap: desktopPriceMap,
+    isDayDisabled: desktopDisabled,
+  } = useCalendarAvailability(
+    property || null,
+    month,
+    "desktop",
+    isDesktop
+  );
+
+  const {
+    isLoading: mobileLoading,
+    isError: mobileError,
+    priceMap: mobilePriceMap,
+    isDayDisabled: mobileDisabled,
+  } = useCalendarAvailability(
+    property || null,
+    month,
+    "mobile",
+    !isDesktop
+  );
 
   const selectedNights =
     selected?.from && selected?.to

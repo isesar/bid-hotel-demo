@@ -42,6 +42,7 @@ export function AccommodationDialog({
         className={cn(
           "gap-0 overflow-hidden rounded-none border-0 bg-white p-0 text-ink ring-0",
           "max-md:fixed max-md:inset-0 max-md:flex max-md:h-full max-md:w-full max-md:max-w-full max-md:translate-x-0 max-md:translate-y-0 max-md:top-0 max-md:left-0 max-md:flex-col max-md:shadow-none",
+          "sm:max-w-none",
           "md:max-w-[900px] md:shadow-[0px_4px_18px_0px_rgba(0,0,0,0.1)]",
           contentClassName
         )}

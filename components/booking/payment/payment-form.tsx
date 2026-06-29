@@ -2,7 +2,11 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDays } from "date-fns";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+
+import { isBookingCompleted } from "@/lib/booking/booking-session";
 
 import { formatDateRange } from "@/lib/booking/calendar-utils";
 import { formatNightsLabel } from "@/lib/booking/format";
@@ -41,6 +45,7 @@ const defaultValues: PaymentFormValues = {
 };
 
 export function PaymentForm() {
+  const router = useRouter();
   const [{ property, checkin, nights, rooms }] = useBookingParams();
   const { isReady } = useBookingRouteGuard({
     requireCheckin: true,
@@ -82,6 +87,12 @@ export function PaymentForm() {
     resolver: zodResolver(paymentFormSchema),
     defaultValues,
   });
+
+  useEffect(() => {
+    if (isBookingCompleted()) {
+      router.replace("/");
+    }
+  }, [router]);
 
   if (!isReady || !checkin || !checkout) {
     return null;

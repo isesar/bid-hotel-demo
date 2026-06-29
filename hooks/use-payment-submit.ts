@@ -5,9 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { createBooking } from "@/lib/booking/api";
+import { markBookingCompleted } from "@/lib/booking/booking-session";
 import { useConfirmation } from "@/lib/booking/confirmation-context";
 import {
   aggregateBookingUnits,
+  formatPhoneForSubmit,
   stripNonDigits,
   type PaymentFormValues,
 } from "@/lib/booking/payment-schema";
@@ -49,6 +51,8 @@ export function usePaymentSubmit({
       setSubmitError(null);
 
       try {
+        const phone = formatPhoneForSubmit(values.phone);
+
         const response = await createBooking({
           propertyId: property,
           checkin: checkinParam,
@@ -58,7 +62,7 @@ export function usePaymentSubmit({
             firstName: values.firstName,
             lastName: values.lastName,
             email: values.email,
-            phone: `+385${stripNonDigits(values.phone)}`,
+            phone,
           },
           payment: {
             cardNumber: stripNonDigits(values.cardNumber),
@@ -88,7 +92,7 @@ export function usePaymentSubmit({
             firstName: values.firstName,
             lastName: values.lastName,
             email: values.email,
-            phone: `+385${stripNonDigits(values.phone)}`,
+            phone,
           },
           propertyName,
           checkin,
@@ -108,6 +112,7 @@ export function usePaymentSubmit({
           ),
         });
 
+        markBookingCompleted();
         router.push("/book/confirmation");
       } catch {
         setSubmitError(

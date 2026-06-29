@@ -5,6 +5,15 @@ export function stripNonDigits(value: string) {
   return value.replace(/\D/g, "");
 }
 
+export function formatPhoneForSubmit(phone: string, countryCode = "385") {
+  const digits = stripNonDigits(phone);
+  const normalized = digits.startsWith(countryCode)
+    ? digits.slice(countryCode.length)
+    : digits;
+
+  return `+${countryCode}${normalized}`;
+}
+
 export function formatCardNumber(value: string) {
   const digits = stripNonDigits(value).slice(0, 19);
   return digits.replace(/(\d{4})(?=\d)/g, "$1-");

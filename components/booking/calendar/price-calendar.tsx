@@ -111,6 +111,7 @@ export function PriceCalendar({
       selected={selected}
       onSelect={onSelect}
       disabled={isDayDisabled}
+      excludeDisabled
       numberOfMonths={monthCount}
       showOutsideDays={false}
       className={cn(

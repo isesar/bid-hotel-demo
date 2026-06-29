@@ -5,14 +5,15 @@ import { Tick02Icon } from "@hugeicons/core-free-icons";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+import { clearBookingCompleted } from "@/lib/booking/booking-session";
 import type { ConfirmationSnapshot } from "@/lib/booking/confirmation-context";
+import { useConfirmation } from "@/lib/booking/confirmation-context";
 import {
   formatConfirmationDate,
   formatEuro,
   formatGuestsLabel,
   formatNightsLabel,
 } from "@/lib/booking/format";
-import { useConfirmation } from "@/lib/booking/confirmation-context";
 import { cn } from "@/lib/utils";
 
 import { BOOKING_STEPS, Stepper } from "@/components/booking/stepper";
@@ -58,6 +59,7 @@ export function ConfirmationSuccess({ snapshot }: ConfirmationSuccessProps) {
 
   const handleGoHome = () => {
     clearSnapshot();
+    clearBookingCompleted();
     router.push("/");
   };
 
