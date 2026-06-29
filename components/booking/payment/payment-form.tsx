@@ -53,13 +53,19 @@ export function PaymentForm() {
     checkinParam,
     availabilityLoading,
     availabilityError,
+    units,
   } = useReservation();
   const { handleBack } = usePaymentNavigation();
   const { submitError, onSubmit } = usePaymentSubmit({
     property: property ?? "",
     checkinParam: checkinParam ?? "",
+    checkin,
     nights,
     rooms,
+    propertyName,
+    cartLines,
+    grandTotal,
+    units,
   });
 
   const checkout = checkin ? addDays(checkin, nights) : null;

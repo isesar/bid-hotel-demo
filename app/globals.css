@@ -55,6 +55,8 @@
   --color-surface: #f3f3f3;
   --color-surface-hover: #fafafa;
   --color-alert: #e02626;
+  --color-success: #127310;
+  --color-success-light: #edfaec;
 
   --text-micro: 9px;
   --text-mini: 11px;
