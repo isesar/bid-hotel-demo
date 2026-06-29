@@ -3,6 +3,7 @@
 import { HugeiconsIcon } from "@hugeicons/react";
 import { ArrowLeft01Icon } from "@hugeicons/core-free-icons";
 
+import type { CartRoomLine } from "@/components/booking/cart/cart-room-card";
 import { OrderSummary } from "@/components/booking/payment/order-summary";
 import { BOOKING_STEPS, Stepper } from "@/components/booking/stepper";
 import { Button } from "@/components/ui/button";
@@ -12,7 +13,7 @@ type PaymentFormStickyHeaderProps = {
   propertyName: string;
   dateRange: string;
   nightsLabel: string;
-  roomCount: number;
+  lines: CartRoomLine[];
   grandTotal: number;
 };
 
@@ -21,7 +22,7 @@ export function PaymentFormStickyHeader({
   propertyName,
   dateRange,
   nightsLabel,
-  roomCount,
+  lines,
   grandTotal,
 }: PaymentFormStickyHeaderProps) {
   return (
@@ -51,14 +52,13 @@ export function PaymentFormStickyHeader({
         propertyName={propertyName}
         dateRange={dateRange}
         nightsLabel={nightsLabel}
-        roomCount={roomCount}
+        lines={lines}
         grandTotal={grandTotal}
       />
 
-      <div className="hidden bg-surface p-4 md:block">
-        <p className="text-base font-semibold leading-6 tracking-label text-ink">
-          {propertyName}
-        </p>
+      <div className="hidden bg-surface p-4 md:flex md:flex-col md:items-center md:text-center">        <p className="text-base font-semibold leading-6 tracking-label text-ink">
+        {propertyName}
+      </p>
         <p className="text-base leading-6 tracking-label text-ink-muted">
           {dateRange}{" "}
           <span className="text-ink-muted">({nightsLabel})</span>

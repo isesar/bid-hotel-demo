@@ -96,7 +96,7 @@ export function PaymentForm() {
         propertyName={propertyName}
         dateRange={dateRange}
         nightsLabel={nightsLabel}
-        roomCount={cartLines.length}
+        lines={cartLines}
         grandTotal={grandTotal}
       />
 
@@ -120,7 +120,7 @@ export function PaymentForm() {
           propertyName={propertyName}
           dateRange={dateRange}
           nightsLabel={nightsLabel}
-          roomCount={cartLines.length}
+          lines={cartLines}
           grandTotal={grandTotal}
           className="sticky top-24"
         />
@@ -131,7 +131,7 @@ export function PaymentForm() {
         propertyName={propertyName}
         dateRange={dateRange}
         nightsLabel={nightsLabel}
-        roomCount={cartLines.length}
+        lines={cartLines}
         grandTotal={grandTotal}
       />
     </div>
