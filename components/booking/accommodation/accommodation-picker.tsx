@@ -9,11 +9,11 @@ import { useProperties } from "@/hooks/use-booking-queries";
 
 import { Button } from "@/components/ui/button";
 import { AccommodationDialog } from "@/components/booking/accommodation/accommodation-dialog";
+import { BackgroundVideo } from "@/components/booking/accommodation/background-video";
 import { AccommodationSkeleton } from "@/components/booking/accommodation/accommodation-skeleton";
 import { AccommodationTabs } from "@/components/booking/accommodation/accommodation-tabs";
 import { HotelList } from "@/components/booking/hotel/hotel-list";
 import { PaginationDots } from "@/components/booking/pagination-dots";
-
 
 function PropertiesError({ message }: { message: string }) {
   return (
@@ -78,6 +78,8 @@ export function AccommodationPicker() {
 
   return (
     <div className="relative min-h-screen flex-1">
+      <BackgroundVideo />
+
       <AccommodationDialog
         open={open}
         onOpenChange={setOpen}
