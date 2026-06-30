@@ -117,7 +117,7 @@ export function CartRoomCard({
             <Button
               type="button"
               variant="link"
-              className="h-auto self-end rounded-none border-b border-ink p-0 text-caption tracking-label text-ink no-underline hover:no-underline"
+              className="h-auto self-end  rounded-none p-2 text-caption tracking-label text-ink underline hover:pointer"
             >
               Rate details
             </Button>

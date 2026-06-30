@@ -23,7 +23,7 @@ export function RoomAvailabilityHeader({
           type="button"
           variant="link"
           onClick={onOpenCart}
-          className="h-auto rounded-none border-b border-ink p-0 text-caption font-semibold tracking-label text-ink no-underline hover:no-underline"
+          className="h-auto rounded-none border-b border-ink p-2 text-caption font-semibold tracking-label text-ink no-underline hover:no-underline"
         >
           VIEW CART ({cartCount})
         </Button>

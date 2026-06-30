@@ -79,7 +79,6 @@ export function AccommodationPicker() {
   return (
     <div className="relative min-h-screen flex-1">
       <BackgroundVideo />
-
       <AccommodationDialog
         open={open}
         onOpenChange={setOpen}

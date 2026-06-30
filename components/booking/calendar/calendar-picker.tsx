@@ -20,8 +20,6 @@ import {
 } from "@/components/booking/calendar/calendar-panels";
 import { PaginationDots } from "@/components/booking/pagination-dots";
 
-const HERO_IMAGE =
-  "https://images.unsplash.com/photo-1555992336-03a23c7b10cb?auto=format&fit=crop&w=1920&q=80";
 
 export function CalendarPicker() {
   const router = useRouter();
@@ -123,14 +121,7 @@ export function CalendarPicker() {
 
   return (
     <div className="relative min-h-screen flex-1">
-      <div
-        aria-hidden
-        className={cn(
-          "absolute inset-0 bg-cover bg-center",
-          open ? "max-md:hidden" : "block"
-        )}
-        style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-      />
+
 
       <AccommodationDialog
         open={open}
