@@ -7,7 +7,7 @@ import {
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { BookingCloseButton } from "@/components/booking/accomodation/booking-close-button";
+import { BookingCloseButton } from "@/components/booking/accommodation/booking-close-button";
 
 type AccommodationDialogProps = {
   open: boolean;

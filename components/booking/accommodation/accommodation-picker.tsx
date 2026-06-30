@@ -8,9 +8,9 @@ import { usePropertySelection } from "@/lib/booking/search-params";
 import { useProperties } from "@/hooks/use-booking-queries";
 
 import { Button } from "@/components/ui/button";
-import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
-import { AccommodationSkeleton } from "@/components/booking/accomodation/accommodation-skeleton";
-import { AccommodationTabs } from "@/components/booking/accomodation/accommodation-tabs";
+import { AccommodationDialog } from "@/components/booking/accommodation/accommodation-dialog";
+import { AccommodationSkeleton } from "@/components/booking/accommodation/accommodation-skeleton";
+import { AccommodationTabs } from "@/components/booking/accommodation/accommodation-tabs";
 import { HotelList } from "@/components/booking/hotel/hotel-list";
 import { PaginationDots } from "@/components/booking/pagination-dots";
 
