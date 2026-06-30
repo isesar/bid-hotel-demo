@@ -13,7 +13,7 @@ import { useBookingRouteGuard } from "@/hooks/use-booking-route-guard";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { useProperties } from "@/hooks/use-booking-queries";
 
-import { AccommodationDialog } from "@/components/booking/accomodation/accommodation-dialog";
+import { AccommodationDialog } from "@/components/booking/accommodation/accommodation-dialog";
 import {
   DesktopCalendarPanel,
   MobileCalendarPanel,
