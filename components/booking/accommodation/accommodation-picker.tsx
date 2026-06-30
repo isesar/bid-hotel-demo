@@ -15,7 +15,6 @@ import { AccommodationTabs } from "@/components/booking/accommodation/accommodat
 import { HotelList } from "@/components/booking/hotel/hotel-list";
 import { PaginationDots } from "@/components/booking/pagination-dots";
 
-
 function PropertiesError({ message }: { message: string }) {
   return (
     <div className="p-10 text-center text-ink-muted max-md:p-4">{message}</div>
