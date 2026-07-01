@@ -7,7 +7,6 @@ import type { DateRange } from "react-day-picker";
 
 import { getNightCount } from "@/lib/booking/calendar-utils";
 import { useBookingParams } from "@/lib/booking/search-params";
-import { cn } from "@/lib/utils";
 import { useCalendarAvailability } from "@/hooks/use-calendar-availability";
 import { useBookingRouteGuard } from "@/hooks/use-booking-route-guard";
 import { useMediaQuery } from "@/hooks/use-media-query";

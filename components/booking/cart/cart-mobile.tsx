@@ -140,10 +140,9 @@ export function CartMobile({
       <div className="fixed inset-x-0 bottom-0 z-10 bg-white px-4 pb-6 pt-6 md:hidden">
         <Button
           type="button"
-          variant="ghost"
           onClick={onContinue}
           disabled={lines.length === 0}
-          className="flex h-14 w-full items-center justify-between rounded-none bg-ink px-6 text-white hover:bg-ink disabled:cursor-not-allowed disabled:bg-line"
+          className="flex h-14 w-full items-center justify-between cursor-pointer rounded-none bg-ink px-6 text-white hover:bg-ink disabled:cursor-not-allowed disabled:bg-line"
         >
           <span className="text-base font-semibold leading-6 tracking-label">
             Total: {formatEuro(grandTotal)}

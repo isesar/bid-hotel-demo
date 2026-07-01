@@ -11,6 +11,7 @@ type HotelOptionCardProps = {
   selected?: boolean;
   layout?: "desktop" | "mobile";
   showSubtitle?: boolean;
+  onSelect?: () => void;
 };
 
 export function HotelOptionCard({
@@ -20,10 +21,12 @@ export function HotelOptionCard({
   selected = false,
   layout = "desktop",
   showSubtitle = true,
+  onSelect,
 }: HotelOptionCardProps) {
   return (
     <label
       htmlFor={id}
+      onClick={onSelect}
       className={cn(
         "group relative flex cursor-pointer flex-col border border-line text-left transition-colors hover:bg-surface-hover",
         selected && "bg-surface",

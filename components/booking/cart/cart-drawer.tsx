@@ -119,7 +119,6 @@ export function CartDrawer({
 
             <Button
               type="button"
-              // variant="ghost"
               onClick={onContinue}
               disabled={lines.length === 0}
               className="flex h-14 w-full items-center justify-between cursor-pointer rounded-none bg-ink px-6 text-white hover:bg-ink disabled:cursor-not-allowed disabled:bg-line"
