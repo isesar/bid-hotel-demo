@@ -1,5 +1,7 @@
-import { redirect } from "next/navigation";
+import { AccommodationPicker } from "@/components/booking/accommodation/accommodation-picker";
+import { Suspense } from "react";
 
 export default function Home() {
-  redirect("/book/hotels");
+  return <Suspense><AccommodationPicker /></Suspense >;
+
 }

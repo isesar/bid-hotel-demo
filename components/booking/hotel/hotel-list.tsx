@@ -31,7 +31,6 @@ export function HotelList({
     >
       <RadioGroup
         value={selectedPropertyId ?? ""}
-        onValueChange={onSelectProperty}
         className={cn(
           "gap-0",
           layout === "desktop" ? "contents" : "flex flex-col"
@@ -45,6 +44,7 @@ export function HotelList({
             subtitle={formatPropertyType(property.type)}
             selected={selectedPropertyId === property.id}
             layout={layout}
+            onSelect={() => onSelectProperty(property.id)}
           />
         ))}
       </RadioGroup>

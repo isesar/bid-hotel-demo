@@ -93,7 +93,7 @@ export function AccommodationPicker() {
             accommodationContent={mobileList}
             datesContent={
               <p className="text-center text-ink-muted">
-                Dates step coming soon
+                Please select one of the hotels first.
               </p>
             }
           />
