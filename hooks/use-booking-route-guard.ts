@@ -3,7 +3,10 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-import { useBookingParams } from "@/lib/booking/search-params";
+import {
+  accommodationPath,
+  useBookingParams,
+} from "@/lib/booking/search-params";
 
 type BookingRouteGuardOptions = {
   requireCheckin?: boolean;
@@ -20,7 +23,7 @@ export function useBookingRouteGuard({
 
   useEffect(() => {
     if (!property) {
-      router.replace("/book/hotels");
+      router.replace(accommodationPath());
       return;
     }
 

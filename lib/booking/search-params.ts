@@ -95,6 +95,12 @@ export function useBookingParams() {
   ] as const;
 }
 
+export function accommodationPath(property?: string) {
+  return property
+    ? `/?property=${encodeURIComponent(property)}`
+    : "/";
+}
+
 export function usePropertySelection() {
   const [{ property }, setParams] = useBookingParams();
 
