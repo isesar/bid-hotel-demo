@@ -6,7 +6,10 @@ import { useCallback, useState } from "react";
 import type { DateRange } from "react-day-picker";
 
 import { getNightCount } from "@/lib/booking/calendar-utils";
-import { useBookingParams } from "@/lib/booking/search-params";
+import {
+  accommodationPath,
+  useBookingParams,
+} from "@/lib/booking/search-params";
 import { useCalendarAvailability } from "@/hooks/use-calendar-availability";
 import { useBookingRouteGuard } from "@/hooks/use-booking-route-guard";
 import { useMediaQuery } from "@/hooks/use-media-query";
@@ -91,11 +94,7 @@ export function CalendarPicker() {
   const handleTabChange = useCallback(
     (tab: "accommodation" | "dates") => {
       if (tab === "accommodation") {
-        router.push(
-          property
-            ? `/book/hotels?property=${encodeURIComponent(property)}`
-            : "/book/hotels"
-        );
+        router.push(accommodationPath(property));
         return;
       }
       setActiveTab(tab);
